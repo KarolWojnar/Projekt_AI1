@@ -14,8 +14,14 @@ return new class extends Migration
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('description');
             $table->string('genre');
+            $table->string('director');
             $table->year('release');
+            $table->integer('longTime');
+            $table->float('rate');
+            $table->string('img_path');
+            $table->string('available')->default('dostępny');
         });
         Schema::table('loans', function (Blueprint $table) {
             $table->foreignId('movie_id')->nullable()->constrained();

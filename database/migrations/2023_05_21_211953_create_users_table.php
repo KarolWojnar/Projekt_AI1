@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('address');
+            $table->string('city');
             $table->string('password');
+            $table->boolean('isAdmin')->default(false);
         });
         Schema::table('loans', function (Blueprint $table) {
             $table->foreignId('user_id')->nullable()->constrained();

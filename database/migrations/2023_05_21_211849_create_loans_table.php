@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('start_loan');
             $table->date('end_loan');
             $table->decimal('price');
+            $table->integer('status');
         });
     }
 

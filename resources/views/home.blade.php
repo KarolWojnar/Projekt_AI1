@@ -5,30 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Prjekt_AI1</title>
     <link href="css/bootstrap.css" rel="stylesheet">
-
   </head>
   <body class="bg-dark">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-2">
-        <a class="navbar-brand" href="#">Cinema Blu-ray</a>
+        <a class="navbar-brand red-after nav-link"><b>Cinema Blu-ray</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">Strona główna</a>
+              <a class="nav-link red-after" href="#">Strona główna</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">O nas</a>
+              <a class="nav-link red-after" href="#">O nas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Regulamin</a>
+              <a class="nav-link red-after" href="{{ route('regulamin') }}">Regulamin</a>
             </li>
           </ul>
         </div>
-        <button class="btn btn-outline-success float-right" type="submit">Logowanie</button>
+            @guest
+                <a href="{{ route('login') }}" class="btn btn-block custom-btn"><b>Zaloguj</b></a>
+        @else
+                <a href="/users/{{ Auth::id() }}" class="w-40 h-100 m-2 btn btn-block custom-btn"><b>Twój profil</b></a>
+                <a href="{{ route('logout') }}" class=" btn btn-block custom-btn"><b>Wyloguj</b></a>
+        @endguest
       </nav>
-
 
       <div id="carouselExampleInterval" class="carousel slide p-1" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -51,6 +54,42 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="text-center text-white ">
+          <h1>Polecane dziś filmy</h1>
+        </div>
+      </div>
+        @php
+      $randomIds = DB::table('movies')
+          ->where('available', '=', 'dostępny')
+          ->inRandomOrder()
+          ->limit(5)
+          ->select('img_path', 'title', 'release', 'director', 'id')
+          ->get();
+        @endphp
+      @foreach ($randomIds as $movie)
+        @php
+            $img_path = $movie->img_path;
+            $title = $movie->title;
+            $release = $movie->release;
+            $director = $movie->director;
+            $id = $movie->id;
+        @endphp
+      <div class="d-inline-block card bg-dark2 text-white m-3" style="width: 18rem;">
+        <img src="{{ asset($img_path) }}" class="card-img-top " alt="">
+        <div class="card-body">
+          <h5 class="card-title">{{ $title }}</h5>
+          <p class="card-text"></p>
+        </div>
+        <ul class="list-group list-group-flush bg-secondary">
+          <li class="list-group-item bg-dark2">Reżyser: <b>{{ $director }}</b></li>
+          <li class="list-group-item bg-dark3">Rok premiery: <b>{{ $release }}</b></li>
+        </ul>
+        <div class="card-body bg-dark">
+          <a href="/movie/{{ $id }}" class="w-100 h-100 btn btn-block custom-btn"><b>Przejdź do filmu</b></a>
+        </div>
+      </div>
+      @endforeach
 
       <script src="js/bootstrap.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>

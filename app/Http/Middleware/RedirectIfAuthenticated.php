@@ -21,6 +21,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                if ($request->is('home')) { // Dodaj ten warunek
+                    return redirect('/home');
+                }
+
                 return redirect(RouteServiceProvider::HOME);
             }
         }
