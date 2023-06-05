@@ -1,5 +1,5 @@
-@extends('layouts.app')
-
+@extends('layouts.header')
+@include('layouts.css')
 @section('content')
     <div class="text-white">
     <h1>{{ $user->first_name }} {{ $user->last_name }}</h1>

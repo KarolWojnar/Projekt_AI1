@@ -2119,6 +2119,25 @@ progress {
   border-radius: var(--bs-border-radius);
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.form-control2 {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: 2px solid rgba(255, 0, 0, 0.281);
+    border-right-color: #0a52be00;
+    border-top-color: #0a52be00;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: var(--bs-border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
 @media (prefers-reduced-motion: reduce) {
   .form-control {
     transition: none;
@@ -2131,8 +2150,8 @@ progress {
   cursor: pointer;
 }
 .form-control:focus {
-  color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
+  color: wheat;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
   border-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(228, 0, 0, 0.315) !important;

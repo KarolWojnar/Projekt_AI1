@@ -20,6 +20,7 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 //podstrona użytkownika
 Route::get('/users/{id}', [UsersController::class, 'show']);
+Route::get('/users/{id}', 'UsersController@show')->name('users.show');
 //regulamin
 Route::get('/regulamin', 'App\Http\Controllers\RegulaminController@index')->name('regulamin');
 //edycja danych

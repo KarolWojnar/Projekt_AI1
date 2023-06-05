@@ -7,7 +7,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
   </head>
   <body class="bg-dark">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-2">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-3">
         <a class="navbar-brand red-after nav-link"><b>Cinema Blu-ray</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -75,14 +75,14 @@
             $director = $movie->director;
             $id = $movie->id;
         @endphp
-      <div class="d-inline-block card bg-dark2 text-white m-3" style="width: 18rem;">
-        <img src="{{ asset($img_path) }}" class="card-img-top " alt="">
+      <div class="d-inline-block card bg-dark2 text-white m-3" style="width: 17rem;">
+        <img src="{{ asset($img_path) }}" class="card-img-top" alt="">
         <div class="card-body">
-          <h5 class="card-title">{{ $title }}</h5>
+          <h6 class="card-title text-danger2 "><b>{{ $title }}</b></h6>
           <p class="card-text"></p>
         </div>
         <ul class="list-group list-group-flush bg-secondary">
-          <li class="list-group-item bg-dark2">Reżyser: <b>{{ $director }}</b></li>
+          <li class="list-group-item bg-dark2 text-white">Reżyser: <b>{{ $director }}</b></li>
           <li class="list-group-item bg-dark3">Rok premiery: <b>{{ $release }}</b></li>
         </ul>
         <div class="card-body bg-dark">

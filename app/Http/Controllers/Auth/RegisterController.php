@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -20,9 +21,10 @@ class RegisterController extends Controller
     protected $redirectTo = '/';
 
 
-    protected function registered($user)
+    protected function registered(Request $request, $user)
     {
-        return redirect('/users/' . $user->id);
+        $userId = $user->id;
+        return redirect()->route('users.show', ['id' => $userId]);
     }
 
     /**
@@ -71,12 +73,13 @@ class RegisterController extends Controller
         ]);
     }
 
+
     public function show($id)
-{
+    {
     // Pobierz użytkownika na podstawie $id
     $user = User::findOrFail($id);
 
     // Zwróć widok podstrony użytkownika
     return view('users.show', compact('user'));
-}
+    }
 }

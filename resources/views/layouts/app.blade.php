@@ -17,9 +17,6 @@
         color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity)) !important;
     }
     </style>
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body class="bg-dark">
     <div id="app">
@@ -37,8 +34,6 @@
                     <ul class="navbar-nav me-auto">
 
                     </ul>
-                    @if ($_SERVER['REQUEST_URI'] !== '/regulamin')
-                    <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
@@ -71,7 +66,6 @@
                             </li>
                         @endguest
                     </ul>
-                    @endif
                 </div>
             </div>
         </nav>

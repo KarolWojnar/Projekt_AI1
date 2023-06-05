@@ -65,8 +65,8 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        $userId = $user->id; // lub inny sposób identyfikacji użytkownika
-        return redirect('/users/' . $userId); // Przekierowanie na podstronę danego użytkownika
+        $userId = $user->id;
+        return redirect('/users/' . $userId);
     }
 
     /**
