@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-    <h1>Regulamin</h1>
+    <h1 class="text-white">Regulamin</h1><br><br>
     <ol class="text-danger2 fw-bold">
         <li >Rejestracja
             <ul>

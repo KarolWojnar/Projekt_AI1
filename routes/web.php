@@ -9,7 +9,7 @@ use App\Http\Controllers\UsersController;
 
 Auth::routes();
 //strona główna
-Route::get('/home', function () {return view('home');});
+Route::get('/home', function () {return view('home');})->name('home');
 Route::get('/', function () {return view('home');});
 //logowanie
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
