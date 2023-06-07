@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use App\Models\Movie;
 class MoviesController extends Controller
 {
@@ -26,4 +27,10 @@ public function delete($id)
 
     return redirect()->back()->with('success', 'Film został pomyślnie usunięty.');
 }
+=======
+
+class MoviesController extends Controller
+{
+    //
+>>>>>>> cce75a64d2c95dceede8bcf1e3a98cb78e849b6a
 }

@@ -28,7 +28,16 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+<<<<<<< HEAD
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+=======
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav me-auto">
+
+                    </ul>
+>>>>>>> cce75a64d2c95dceede8bcf1e3a98cb78e849b6a
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
