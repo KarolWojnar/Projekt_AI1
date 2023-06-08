@@ -6,10 +6,6 @@
         <div class="col-md-8">
             <div class="card ">
                 <div class="card-header bg-dark3">{{ __('Logowanie') }}</div>
-<<<<<<< HEAD
-=======
-
->>>>>>> cce75a64d2c95dceede8bcf1e3a98cb78e849b6a
                 <div class="card-body bg-dark">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

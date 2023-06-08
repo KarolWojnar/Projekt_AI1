@@ -8937,6 +8937,13 @@ textarea.form-control-lg {
     --bs-bg-opacity: 0.2;
     background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
   }
+  .edit-panel {
+    display: none;
+}
+
+.edit-panel.show {
+    display: block;
+}
 
 .bg-black {
   --bs-bg-opacity: 1;
