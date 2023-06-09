@@ -13,8 +13,8 @@ use App\Http\Controllers\RegulaminController;
 
 
 Auth::routes();
-//strona główna
-Route::get('/home', function () {return view('home');});
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/home', function () {return view('home');});
 Route::get('/', function () {return view('home');});
 //logowanie
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -40,6 +40,8 @@ Route::get('/movies/delete/{id}', [MoviesController::class, 'delete'])->name('mo
 Route::get('/users/delete/{id}', [UsersController::class, 'delete'])->name('users.delete');
 Route::put('/movies/{id}', [MoviesController::class, 'update'])->name('movies.update');
 Route::post('/movies', [MoviesController::class, 'store'])->name('movies.store');
+});
+
 
 
 

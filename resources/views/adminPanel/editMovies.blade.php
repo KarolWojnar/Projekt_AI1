@@ -1,8 +1,59 @@
 @include('layouts.header')
 @include('layouts.css')
 <div class="container w-100">
+    <a href="#" class="btn btn-secondary custom-btn mb-3" onclick="toggleAddPanel(event)">Dodaj film</a>
+    <li id="add-panel" class="list-group-item bg-dark text-white edit-panel" style="display: none;">
+        <form action="{{ route('movies.store') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                    <label for="title">Tytuł</label>
+                    <input type="text" class="form-control" id="title" name="title" value="">
+                </div>
+                <div class="form-group">
+                    <label for="genre">Gatunek</label>
+                    <input type="text" class="form-control" id="genre" name="genre" value="">
+                </div>
+                <div class="form-group">
+                    <label for="description">Opis</label>
+                    <input type="text" class="form-control" id="description" name="description" value="">
+                </div>
+                <div class="form-group">
+                    <label for="director">Reżyser</label>
+                    <input type="text" class="form-control" id="director" name="director" value="">
+                </div>
+                <div class="form-group">
+                    <label for="release">Rok premiery</label>
+                    <input type="text" class="form-control" id="release" name="release" value="">
+                </div>
+                <div class="form-group">
+                    <label for="longTime">Czas trwania w minutach</label>
+                    <input type="text" class="form-control" id="longTime" name="longTime" value="">
+                </div>
+                <div class="form-group">
+                    <label for="rate">Ocena</label>
+                    <input type="text" class="form-control" id="rate" name="rate" value="">
+                </div>
+                <div class="form-group">
+                    <label for="pricePerDay">Cena za dzień</label>
+                    <input type="text" class="form-control" id="pricePerDay" name="pricePerDay" value="">
+                </div>
+                <div class="form-group">
+                    <label for="img_path">Zmień zdjęcie</label>
+                    <input type="text" class="form-control" id="img_path" name="img_path" value="">
+                </div>
+                <div class="form-group">
+                    <label for="available">Dostępność</label>
+                    <select id="available" name="available" class="form-control">
+                            <option value="dostępny">dostępny</option>
+                            <option value="niedostępny">niedostępny</option>
+                    </select>
+                </div>
+
+            <button type="submit" class="btn btn-secondary custom-btn m-2 w-30">Dodaj</button>
+            <button type="button" class="btn btn-secondary custom-btn m-2 w-30" onclick="cancelAddPanel(event)">Anuluj</button>
+        </form>
+    </li>
     <ul class="list-group">
-        <a href="#" class="btn btn-secondary custom-btn m-3 w-40" onclick="toggleEditPanel(event, {{ $movies }})">Dodaj film</a>
         @foreach($movies as $movie)
             <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
                 <div class="text-white">
@@ -53,6 +104,10 @@
                         <input type="text" class="form-control" id="rate" name="rate" value="{{ $movie->rate }}">
                     </div>
                     <div class="form-group">
+                        <label for="pricePerDay">Cena za dzień</label>
+                        <input type="text" class="form-control" id="pricePerDay" name="pricePerDay" value="{{ $movie->pricePerDay }}">
+                    </div>
+                    <div class="form-group">
                         <label for="img_path">Zmień zdjęcie</label>
                         <input type="text" class="form-control" id="img_path" name="img_path" value="{{ $movie->img_path }}">
                     </div>
@@ -67,7 +122,8 @@
                             @endif
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-secondary m-2 w-30">Zapisz</button>
+                    <button type="submit" class="btn btn-secondary custom-btn m-2 w-30">Zapisz</button>
+                    <button type="button" class="btn btn-secondary custom-btn m-2 w-30" onclick="cancelEditPanel(event, {{ $movie->id }})">Anuluj</button>
                 </form>
             </li>
         @endforeach
@@ -83,4 +139,25 @@
             editPanel.style.display = 'none';
         }
     }
+    function cancelEditPanel(event, movieId) {
+        event.preventDefault();
+        var editPanel = document.getElementById('edit-panel-' + movieId);
+        editPanel.style.display = 'none';
+    }
+
+    function toggleAddPanel(event) {
+        event.preventDefault();
+        var addPanel = document.getElementById('add-panel');
+        if (addPanel.style.display === 'none') {
+            addPanel.style.display = 'block';
+        } else {
+            addPanel.style.display = 'none';
+        }
+    }
+    function cancelAddPanel(event) {
+        event.preventDefault();
+        var addPanel = document.getElementById('add-panel');
+        addPanel.style.display = 'none';
+    }
+
 </script>

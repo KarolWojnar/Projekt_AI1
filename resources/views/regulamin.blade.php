@@ -61,7 +61,7 @@
         <li>Kary za opóźnienie
             <ul>
                 <li>Użytkownik ponosi karę za każdy dzień opóźnienia w zwrocie filmu.</li>
-                <li>Wysokość kary jest ustalana na podstawie ustalonej stawki za dzień opóźnienia.</li>
+                <li>Wysokość kary jest ustalana na podstawie ustalonej stawki za dzień opóźnienia, za każdy dzień po terminie 600% podstawowej stawki za dzień.</li>
                 <li>Kary za opóźnienie są naliczane do momentu, gdy film zostanie zwrócony.</li>
             </ul>
         </li>

@@ -30,7 +30,8 @@ class MoviesSeeder extends Seeder
                     'longTime' => $values[6],
                     'rate' => $values[7],
                     'img_path' => $values[8],
-                    'available' => $values[9],
+                    'pricePerDay' => $values[9],
+                    'available' => $values[10],
 
                 ]);
             }

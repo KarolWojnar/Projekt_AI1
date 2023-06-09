@@ -40,6 +40,7 @@ public function update(Request $request, $id)
     $movie->longTime = $request->input('longTime');
     $movie->rate = $request->input('rate');
     $movie->img_path = $request->input('img_path');
+    $movie->pricePerDay = $request->input('pricePerDay');
     $movie->available = $request->input('available');
     $movie->save();
 
@@ -58,6 +59,7 @@ public function store(Request $request)
             'longTime' => 'required',
             'img_path' => 'required',
             'rate' => 'required',
+            'pricePerDay' => 'required',
             'available' => 'required',
         ]);
 
@@ -70,6 +72,7 @@ public function store(Request $request)
         $movie->longTime = $request->input('longTime');
         $movie->rate = $request->input('rate');
         $movie->img_path = $request->input('img_path');
+        $movie->pricePerDay = $request->input('pricePerDay');
         $movie->available = $request->input('available');
 
         $movie->save();
