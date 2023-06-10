@@ -20,7 +20,11 @@
                     @if ($movie->available == 'dostępny')
                         <form action="{{ route('movies.show', ['id' => $movie->id]) }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-secondary custom-btn">Wypożycz film "{{ $movie->title }}"</button>
+                            @guest
+                                <a href="{{ route('login') }}" class="btn btn-block custom-btn"><b>Zaloguj się by wypożyczyć "{{ $movie->title }}"</b></a>
+                            @else
+                                <a href="{{route('loans.show', ['id' => $movie->id])}}" class="btn btn-block custom-btn"><b>Wypożycz film "{{ $movie->title }}"</b></a>
+                            @endguest
                         </form>
                     @else
                         <p class="card-text"><strong>Przepraszamy, film jest aktualnie niedostępny</strong></p>

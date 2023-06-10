@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminPanel\EditMoviesController;
+use App\Http\Controllers\LoansController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\RegulaminController;
@@ -32,6 +33,8 @@ Route::get('/users/{id}', [UsersController::class, 'show'])->name('users.show');
 Route::get('/movie/{id}', [MoviesController::class, 'show'])->name('movies.show');
 Route::get('/movies', [MoviesController::class, 'index'])->name('movies.index');
 Route::get('/movies/filter', [MoviesController::class, 'filter'])->name('movies.filter');
+Route::get('/movie/{id}/loan', [LoansController::class, 'rentMovie'])->name('loans.show')->middleware('auth');
+Route::post('/calculate-price', [LoansController::class, 'calculatePrice'])->name('calculatePrice');
 
 // ADMIN
 Route::get('/editUsersAdmin',  'App\Http\Controllers\AdminPanel\EditUsersController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editUsers');

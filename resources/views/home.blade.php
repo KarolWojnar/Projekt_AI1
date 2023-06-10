@@ -35,10 +35,10 @@
             <div>
                 @guest
                     <a href="{{ route('login') }}" class="btn btn-block custom-btn"><b>Zaloguj</b></a>
-            @else
+                @else
                     <a href="/users/{{ Auth::id() }}" class="w-40 h-100 m-2 btn btn-block custom-btn"><b>Twój profil</b></a>
                     <a href="{{ route('logout') }}" class=" btn btn-block custom-btn"><b>Wyloguj</b></a>
-            @endguest
+                @endguest
             </div>
         </div>
     </nav>
@@ -77,24 +77,26 @@
         ->select('img_path', 'title', 'release', 'director', 'id', 'rate')
         ->get();
         @endphp
-<div class="container">
-    @foreach($randomIds as $movie)
-    <div class="d-inline-block card bg-dark2 text-white m-3" style="width: 17rem;">
-        <img src="{{ asset($movie->img_path) }}" class="card-img-top" alt="">
-        <div class="card-body">
-        <h6 class="card-title text-danger2"><b>{{ $movie->title }}</b></h6>
-        </div>
-        <ul class="list-group list-group-flush bg-secondary">
-        <li class="list-group-item bg-dark2 text-white">Reżyser: <b>{{ $movie->director }}</b></li>
-        <li class="list-group-item bg-dark3">Rok premiery: <b>{{ $movie->release }}</b></li>
-        <li class="list-group-item bg-dark3">Ocena: <b class="text-white">{{ $movie->rate }}</b></li>
-        </ul>
-        <div class="card-body bg-dark">
-        <a href="/movie/{{ $movie->id }}" class="w-100 h-100 btn btn-block custom-btn"><b>Przejdź do filmu</b></a>
+    <div class="container">
+        <div class="row d-flex flex-wrap justify-content-center">
+            @foreach($randomIds as $movie)
+            <div class="d-inline-block card bg-dark text-white m-3" style="width: 17rem;">
+                <img src="{{ asset($movie->img_path) }}" class="card-img-top" alt="">
+                <div class="card-body">
+                <h6 class="card-title text-danger2"><b>{{ $movie->title }}</b></h6>
+                </div>
+                <ul class="list-group list-group-flush bg-secondary">
+                <li class="list-group-item bg-dark2 text-white">Reżyser: <b>{{ $movie->director }}</b></li>
+                <li class="list-group-item bg-dark3">Rok premiery: <b>{{ $movie->release }}</b></li>
+                <li class="list-group-item bg-dark3">Ocena: <b class="text-white">{{ $movie->rate }}</b></li>
+                </ul>
+                <div class="card-body bg-dark">
+                <a href="/movie/{{ $movie->id }}" class="w-100 h-100 btn btn-block custom-btn"><b>Przejdź do filmu</b></a>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
-    @endforeach
-</div>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
   </body>
