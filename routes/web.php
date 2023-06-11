@@ -14,13 +14,8 @@ use App\Http\Controllers\RegulaminController;
 
 
 Auth::routes();
-<<<<<<< HEAD
-//strona główna
-Route::get('/home', function () {return view('home');})->name('home');
-=======
 Route::group(['middleware' => ['web']], function () {
     Route::get('/home', function () {return view('home');});
->>>>>>> 58022ff019aad8013f69d3b8f9cf83223e4d054c
 Route::get('/', function () {return view('home');});
 //logowanie
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
