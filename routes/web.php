@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\AdminPanel\EditUsersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
@@ -10,12 +9,9 @@ use App\Http\Controllers\LoansController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\RegulaminController;
-
-
-
 Auth::routes();
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/home', function () {return view('home');});
+Route::get('/home', function () {return view('home');});
 Route::get('/', function () {return view('home');});
 //logowanie
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -36,7 +32,6 @@ Route::get('/movies', [MoviesController::class, 'index'])->name('movies.index');
 Route::get('/movies/filter', [MoviesController::class, 'filter'])->name('movies.filter');
 Route::get('/movie/{id}/loan', [LoansController::class, 'rentMovie'])->name('loans.show')->middleware('auth');
 Route::post('/calculate-price', [LoansController::class, 'calculatePrice'])->name('calculatePrice');
-
 // ADMIN
 Route::get('/editUsersAdmin',  'App\Http\Controllers\AdminPanel\EditUsersController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editUsers');
 Route::get('/editMoviesAdmin',  'App\Http\Controllers\AdminPanel\EditMoviesController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editMovies');
@@ -45,10 +40,3 @@ Route::get('/users/delete/{id}', [UsersController::class, 'delete'])->name('user
 Route::put('/movies/{id}', [MoviesController::class, 'update'])->name('movies.update');
 Route::post('/movies', [MoviesController::class, 'store'])->name('movies.store');
 });
-
-
-
-
-
-
-

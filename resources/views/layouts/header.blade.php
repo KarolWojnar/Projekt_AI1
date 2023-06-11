@@ -22,11 +22,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
-                <a class="navbar-brand red-after" href="{{ route('home') }}">
+                <a class="navbar-brand red-after" href="{{ route('/') }}">
                     <b>Cinema Blu-ray</b>
                 </a>
-<<<<<<< HEAD
-=======
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
@@ -43,7 +41,6 @@
                         <a href="{{ route('logout') }}" class=" btn btn-block custom-btn"><b>Wyloguj</b></a>
                 @endguest
                 </div>
->>>>>>> 58022ff019aad8013f69d3b8f9cf83223e4d054c
             </div>
         </nav>
 

@@ -10,42 +10,6 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
   </head>
   <body class="bg-dark">
-<<<<<<< HEAD
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm m-2">
-            <a class="navbar-brand red-after nav-link">
-                <b>Cinema Blu-ray</b>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link red-after" href="#">O nas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link red-after" href="{{ route('regulamin') }}">Regulamin</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    @guest
-                        <li class="nav-item">
-                            <a href="{{ route('login') }}" class="btn btn-block custom-btn"><b>Zaloguj</b></a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a href="/users/{{ Auth::id() }}" class="w-40 m-1 btn btn-block custom-btn"><b>Twój profil</b></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('logout') }}" class="btn m-1 btn-block custom-btn"><b>Wyloguj</b></a>
-                        </li>
-                    @endguest
-                </ul>
-            </div>
-        </nav>
-      <div id="carouselExampleInterval" class="carousel slide p-1" data-bs-ride="carousel">
-=======
     <nav class="navbar navbar-expand-md navbar-dark bg-dark m-3">
         <a  class="navbar-brand red-after nav-link text-danger disabled" >
             <b>Cinema Blu-ray</b>
@@ -85,7 +49,6 @@
     </nav>
 
     <div id="carouselExampleInterval" class="carousel slide p-1" data-bs-ride="carousel">
->>>>>>> 58022ff019aad8013f69d3b8f9cf83223e4d054c
         <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="10000">
             <img src="img/background3.jpg" class="d-block w-100 rounded" alt="...">
@@ -138,16 +101,8 @@
             </div>
             @endforeach
         </div>
-<<<<<<< HEAD
-      </div>
-      @endforeach
-    </div>
-      <script src="js/bootstrap.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-=======
     </div>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
->>>>>>> 58022ff019aad8013f69d3b8f9cf83223e4d054c
   </body>
 </html>
