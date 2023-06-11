@@ -42,6 +42,19 @@ class UsersController extends Controller
 
         return redirect()->route('editUsers', $user->id)->with('success', 'Dane użytkownika zostały zaktualizowane.');
     }
+    public function update2(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        // Walidacja danych z formularza
+
+        $user->address = $request->input('address');
+        $user->city = $request->input('city');
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Dane użytkownika zostały zaktualizowane.');
+    }
 
     public function delete($id)
 {

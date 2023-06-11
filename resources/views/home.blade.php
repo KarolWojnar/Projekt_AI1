@@ -9,7 +9,7 @@
   </head>
   <body class="bg-dark">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark m-3">
-        <a class="navbar-brand red-after nav-link">
+        <a  class="navbar-brand red-after nav-link text-danger disabled" >
             <b>Cinema Blu-ray</b>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -29,6 +29,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link red-after" href="{{ route('editUsers') }}">Edycja użytkowników</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link red-after" href="{{ route('editUsers') }}"><strong>ZAMÓWIENIA</strong></a>
                     </li>
                 @endif
             </ul>

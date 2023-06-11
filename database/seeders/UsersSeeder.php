@@ -29,6 +29,7 @@ class UsersSeeder extends Seeder
                     'address' => $values[4],
                     'city' => $values[5],
                     'password' => Hash::make($values[6]),
+                    'isAdmin' => $values[7],
 
                 ]);
             }

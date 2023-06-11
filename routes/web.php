@@ -29,6 +29,7 @@ Route::get('/regulamin', [RegulaminController::class, 'index'])->name('regulamin
 //edycja danych
 Route::get('users/{id}/edit', [UsersController::class, 'edit'])->name('users.edit');
 Route::put('users/{id}', [UsersController::class, 'update'])->name('users.update');
+Route::put('users/{id}/loan', [UsersController::class, 'update2'])->name('users.update2');
 Route::get('/users/{id}', [UsersController::class, 'show'])->name('users.show');
 Route::get('/movie/{id}', [MoviesController::class, 'show'])->name('movies.show');
 Route::get('/movies', [MoviesController::class, 'index'])->name('movies.index');

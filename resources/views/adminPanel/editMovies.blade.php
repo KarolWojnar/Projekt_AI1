@@ -38,8 +38,8 @@
                     <input type="text" class="form-control" id="pricePerDay" name="pricePerDay" value="">
                 </div>
                 <div class="form-group">
-                    <label for="img_path">Zmień zdjęcie</label>
-                    <input type="text" class="form-control" id="img_path" name="img_path" value="">
+                    <label for="img_path">Dodaj ścieżkę do zdjęcia</label>
+                    <input type="text" class="form-control" id="img_path" name="img_path" value="img/example.jpg">
                 </div>
                 <div class="form-group">
                     <label for="available">Dostępność</label>
