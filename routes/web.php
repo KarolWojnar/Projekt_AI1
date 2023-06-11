@@ -11,8 +11,8 @@ use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\RegulaminController;
 Auth::routes();
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/home', function () {return view('home');});
-    Route::get('/', function () {return view('home');});
+    Route::get('/home', function () {return view('home');})->name('home');
+    Route::get('/', function () {return view('home');})->name('home');
     //logowanie
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);

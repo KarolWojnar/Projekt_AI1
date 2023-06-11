@@ -22,7 +22,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
-                <a class="navbar-brand red-after" href="{{ route('/') }}">
+                <a class="navbar-brand red-after" href="{{ route('home') }}">
                     <b>Cinema Blu-ray</b>
                 </a>
 

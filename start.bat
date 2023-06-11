@@ -1,4 +1,4 @@
-%systemDrive%\xampp\mysql\bin\mysql -uroot -e "CREATE DATABASE IF NOT EXISTS ai1_lab6;"
+%systemDrive%\xampp\mysql\bin\mysql -uroot -e
 
 php -r "copy('.env.example', '.env');"
 

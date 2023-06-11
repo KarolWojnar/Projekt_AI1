@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="text-white text-center">
-                <form method="get" action="{{route('regulamin')}}">
+                <form method="get" action="{{route('IN COMING')}}">
                     @csrf
                     <div>
                         @php
@@ -42,7 +42,7 @@
             <h2 class="text-dark bg-danger">ZANIM WYPOŻYCZYSZ</h2>
             <h6>Czy Twoje dane adresowe są poprawnie podane na profilu?</h6>
             <div class="text-white M-AUTO">
-                <button href="" class="btn custom-btn mt-3 col-lg-4" onclick="SetEnabelLoan(event, {{ $user->id }})">TAK</button>
+                <button href="" class="btn custom-btn mt-3 col-lg-4" onclick="setEnableLoan(event, {{ $user->id }})">TAK</button>
                 <a class="btn custom-btn mt-3 col-lg-4" onclick="toggleEditPanel(event, {{ $user->id }})">SPRAWADŹ</a>
             </div>
             <li id="edit-panel-{{ $user->id }}" class="list-group-item bg-dark text-white edit-panel w-50 mx-auto" style="display: none;">
@@ -67,10 +67,10 @@
 
 <script>
 
-    function SetEnableLoan(event, userId) {
-        event.preventDefault();
-        document.getElementById('rentMovieBtn').removeAttribute('disabled');
-    }
+function setEnableLoan(event, userId) {
+    event.preventDefault();
+    document.getElementById('rentMovieBtn').removeAttribute('disabled');
+}
 
     document.getElementById('startDate').addEventListener('change', function() {
         var selectedStartDate = new Date(this.value);
