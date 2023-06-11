@@ -10,8 +10,12 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\RegulaminController;
 Auth::routes();
+
+//strona główna
+Route::get('/home', function () {return view('home');})->name('home');
+
 Route::group(['middleware' => ['web']], function () {
-Route::get('/home', function () {return view('home');});
+    Route::get('/home', function () {return view('home');});
 Route::get('/', function () {return view('home');});
 //logowanie
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
