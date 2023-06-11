@@ -32,6 +32,7 @@
                 <li>Użytkownik może wybierać filmy dostępne w ofercie wypożyczalni.</li>
                 <li>Każdy film jest oznaczony z góry ustaloną ceną wypożyczenia.</li>
                 <li>Użytkownik może dodać wybrane filmy do koszyka w celu złożenia zamówienia.</li>
+                <li>Użytkownik może wypożyczyć tylko jeden film na raz.</li>
             </ul>
         </li>
 
@@ -39,6 +40,7 @@
             <ul>
                 <li>Użytkownik musi złożyć zamówienie na wybrane filmy poprzez proces składania zamówienia na stronie internetowej wypożyczalni.</li>
                 <li>Zamówienie wymaga potwierdzenia, a użytkownik otrzymuje informacje dotyczące opłat i terminu wypożyczenia.</li>
+                <li>Film można wypożyczyć maksymalnie na 14 dni i maksymalnie rezerwowany z tygodniowym wyprzedzeniem.</li>
             </ul>
         </li>
 
@@ -61,7 +63,7 @@
         <li>Kary za opóźnienie
             <ul>
                 <li>Użytkownik ponosi karę za każdy dzień opóźnienia w zwrocie filmu.</li>
-                <li>Wysokość kary jest ustalana na podstawie ustalonej stawki za dzień opóźnienia.</li>
+                <li>Wysokość kary jest ustalana na podstawie ustalonej stawki za dzień opóźnienia, za każdy dzień po terminie 600% podstawowej stawki za dzień.</li>
                 <li>Kary za opóźnienie są naliczane do momentu, gdy film zostanie zwrócony.</li>
             </ul>
         </li>

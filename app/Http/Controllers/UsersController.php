@@ -40,6 +40,33 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect()->route('users.show', $user->id)->with('success', 'Dane użytkownika zostały zaktualizowane.');
+        return redirect()->route('editUsers', $user->id)->with('success', 'Dane użytkownika zostały zaktualizowane.');
     }
+    public function update2(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        // Walidacja danych z formularza
+
+        $user->address = $request->input('address');
+        $user->city = $request->input('city');
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Dane użytkownika zostały zaktualizowane.');
+    }
+
+    public function delete($id)
+{
+    $user = User::find($id);
+
+    if (!$user) {
+
+        return redirect()->back()->with('error', 'Użytkownik nie został znaleziony.');
+    }
+
+    $user->delete();
+
+    return redirect()->back()->with('success', 'Użytkownik został pomyślnie usunięty.');
+}
 }

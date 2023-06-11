@@ -6,7 +6,6 @@
         <div class="col-md-8">
             <div class="card ">
                 <div class="card-header bg-dark3">{{ __('Logowanie') }}</div>
-
                 <div class="card-body bg-dark">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -38,8 +37,11 @@
                                 @enderror
                             </div>
                         </div>
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> cce75a64d2c95dceede8bcf1e3a98cb78e849b6a
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4 bg-dark">
                                 <button type="submit" class="btn btn-secondary custom-btn">
