@@ -15,7 +15,7 @@ class PaymentController extends Controller
     public function processPayment(Request $request)
     {
         // Ustawienie klucza tajnego Stripe
-        Stripe::setApiKey('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');
+        Stripe::setApiKey('');
 
         // Utworzenie płatności na podstawie tokenu płatności
         $token = $request->input('stripeToken');
