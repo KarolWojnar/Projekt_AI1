@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Loan extends Model
 {
-    use HasFactory;
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class, 'loan_movie', 'loan_id', 'movie_id');
+    }
 }

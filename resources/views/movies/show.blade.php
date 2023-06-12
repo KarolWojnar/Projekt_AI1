@@ -23,7 +23,20 @@
                             @guest
                                 <a href="{{ route('login') }}" class="btn btn-block custom-btn"><b>Zaloguj się by wypożyczyć "{{ $movie->title }}"</b></a>
                             @else
-                                <a href="{{route('loans.show', ['id' => $movie->id])}}" class="btn btn-block custom-btn"><b>Wypożycz film "{{ $movie->title }}"</b></a>
+                                @php
+                                    $isInCart = false;
+                                    foreach ($cart as $cartMovie) {
+                                        if ($cartMovie->id == $movie->id) {
+                                            $isInCart = true;
+                                            break;
+                                        }
+                                    }
+                                @endphp
+                                @if ($isInCart)
+                                <p>Film "{{ $movie->title }}" znajduje się już w koszyku.</p>
+                                @else
+                                <a href="{{ route('addToCart', ['id' => $movie->id]) }}" class="btn btn-block custom-btn"><b>Dodaj do koszyka film "{{ $movie->title }}"</b></a>
+                                @endif
                             @endguest
                         </form>
                     @else

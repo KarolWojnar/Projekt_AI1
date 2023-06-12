@@ -14,4 +14,9 @@ class Movie extends Model
         'title', 'description', 'genre', 'director', 'release', 'longTime', 'rate', 'img_path', 'pricePerDay', 'available'
     ];
 
+    public function loans()
+    {
+        return $this->belongsToMany(Loan::class, 'loan_movie', 'movie_id', 'loan_id');
+    }
+
 }

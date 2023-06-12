@@ -1,24 +1,36 @@
 @include('layouts.css')
 @include('layouts.header')
 
+
 <div class="container">
-    <div class="row">
+    <div class="row text-white">
+        @if (empty($cart))
+        <h1>Twój koszyk jest pusty</h1>
+        @else
         <div class="col-lg-6">
-            <div class="text-white text-center">
-                <form method="get" action="{{route('IN COMING')}}">
+            <div class=" text-center">
+                <form method="get" action="">
                     @csrf
-                    <div>
+                    <div class="row justify-content-center">
                         @php
                         $minDate = now()->addDay(1)->toDateString();
                         $maxDate = now()->addDays(14)->toDateString();
                         @endphp
-                        <h3>Witaj {{ $user->first_name }}! Wybrałeś film "{{ $movie->title }}"</h3>
-                        <div class="w-50 m-auto">
-                            <img src="{{ asset($movie->img_path) }}" class="img-fluid w-50 m-auto" alt="{{ $movie->title }}">
+                        <h3>Witaj {{ $user->first_name }}. Twoje filmy to:</h3>
+                        <div class="container">
+                            <div class="row d-flex flex-wrap justify-content-center ">
+                                @foreach ($cart as $movie)
+                                <div class="d-inline-block card bg-dark2 text-white m-2" style="width: 11rem">
+                                    <h6>"{{ $movie->title }}"</h6>
+                                    <img src="{{ asset($movie->img_path) }}" class="img-fluid" alt="{{ $movie->title }}">
+                                    <p class="text-small">Cena za dzień: {{ $movie->pricePerDay }} zł</p>
+                                    <a href="{{ route('deleteFromCart', ['id' => $movie->id]) }}" class="btn btn-block custom-btn"><b>Usuń produkt</b></a>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
-                        <h5>Cena tego filmu za dzień to: {{ $movie->pricePerDay }} zł</h5>
                     </div>
-                    <div class="form-group w-50 mx-auto">
+                    <div class="form-group w-50 mx-auto mt-3">
                         <label for="startDate">Data początku wypożyczenia:</label>
                         <input type="date" id="startDate" name="startDate" value="" class="form-control" min="{{ $minDate }}" max="{{ date('Y-m-d', strtotime('+7 days')) }}" required>
                     </div>
@@ -28,45 +40,48 @@
                         <input type="date" id="endDate" name="endDate" value="" class="form-control" min="{{ $minDate }}" required>
                     </div>
 
-                    <button type="submit" id="rentMovieBtn" class="btn custom-btn mt-3 mx-auto" style="display: none;" disabled>Wypożycz film"{{ $movie->title }}"</button>
                     <button type="button" id="checkPriceBtn" class="btn custom-btn mt-3 mx-auto" disabled style="pointer-events: none; cursor: default;">Sprawdź cenę</button>
                 </form>
-
-                <div class="mt-3">
-                    <h4 id="priceResult"></h4>
-                </div>
             </div>
         </div>
 
         <div class="col-lg-6 text-white text-center">
-            <h2 class="text-dark bg-danger">ZANIM WYPOŻYCZYSZ</h2>
-            <h6>Czy Twoje dane adresowe są poprawnie podane na profilu?</h6>
-            <div class="text-white M-AUTO">
-                <button href="" class="btn custom-btn mt-3 col-lg-4" onclick="setEnableLoan(event, {{ $user->id }})">TAK</button>
-                <a class="btn custom-btn mt-3 col-lg-4" onclick="toggleEditPanel(event, {{ $user->id }})">SPRAWADŹ</a>
-            </div>
-            <li id="edit-panel-{{ $user->id }}" class="list-group-item bg-dark text-white edit-panel w-50 mx-auto" style="display: none;">
+            <div id="formHide" style="display: block;">
+                <h2 class="text-dark bg-danger">ZANIM WYPOŻYCZYSZ</h2>
+                <h6>Czy Twoje dane adresowe są poprawnie podane na profilu?</h6>
+                <div class="text-white M-AUTO">
+                    <button href="" id="yes" class="btn custom-btn mt-3 col-lg-4" onclick="setEnableLoan(event, {{ $user->id }})">TAK</button>
+                    <a class="btn custom-btn mt-3 col-lg-4" onclick="toggleEditPanel(event, {{ $user->id }})">SPRAWADŹ</a>
+                </div>
+                <li id="edit-panel-{{ $user->id }}" class="list-group-item bg-dark text-white edit-panel w-50 mx-auto" style="display: none;">
 
-                <form action="{{ route('users.update2', ['id' => $user->id]) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="form-group">
-                        <label for="address">Adres</label>
-                        <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="city">Miasto</label>
-                        <input type="text" class="form-control" id="city" name="city" value="{{ $user->city }}">
-                    </div>
-                    <button type="submit" class="btn btn-secondary custom-btn m-2 w-30" id="showLoanOption">Zmień</button>
-                </form>
-            </li>
+                    <form action="{{ route('users.update2', ['id' => $user->id]) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            <label for="address">Adres</label>
+                            <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">Miasto</label>
+                            <input type="text" class="form-control" id="city" name="city" value="{{ $user->city }}">
+                        </div>
+                        <button type="submit" class="btn btn-secondary custom-btn m-2 w-30" id="showLoanOption">Zmień</button>
+                    </form>
+                </li>
+            </div>
+            <div class="mt-3">
+                <h4 id="priceResult"></h4>
+            </div>
+            <button type="submit" id="rentMovieBtn" class="btn custom-btn mt-3 mx-auto" style="display: none;" disabled>Przejdź do płatności</button>
         </div>
+        @endif
     </div>
+    <div id="totalPrice" data-total-price="{{ $totalPrice }}"></div>
 </div>
 
-<script>
 
+<script>
 function setEnableLoan(event, userId) {
     event.preventDefault();
     document.getElementById('rentMovieBtn').removeAttribute('disabled');
@@ -97,44 +112,6 @@ function setEnableLoan(event, userId) {
         });
     });
 
-
-    document.getElementById('checkPriceBtn').addEventListener('click', function() {
-        var startDate = document.getElementById('startDate').value;
-        var endDate = document.getElementById('endDate').value;
-
-        if (startDate && endDate) {
-            var data = {
-                "_token": "{{ csrf_token() }}",
-                "movieId": "{{ $movie->id }}",
-                "startDate": startDate,
-                "endDate": endDate
-            };
-
-            fetch("{{ route('calculatePrice') }}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('priceResult').innerText = 'Cena: ' + data.price + ' zł';
-                    document.getElementById('rentMovieBtn').style.display = 'block';
-                } else {
-                    document.getElementById('priceResult').innerText = 'Wystąpił błąd. Spróbuj ponownie.';
-                    document.getElementById('rentMovieBtn').style.display = 'none';
-                }
-            })
-            .catch(error => {
-                document.getElementById('priceResult').innerText = 'Wystąpił błąd. Spróbuj ponownie.';
-                document.getElementById('rentMovieBtn').style.display = 'none';
-            });
-        }
-    });
-
     function toggleEditPanel(event, movieId) {
         event.preventDefault();
         var editPanel = document.getElementById('edit-panel-' + movieId);
@@ -144,4 +121,18 @@ function setEnableLoan(event, userId) {
             editPanel.style.display = 'none';
         }
     }
+
+    document.getElementById('checkPriceBtn').addEventListener('click', function() {
+        var startDate = new Date(document.getElementById('startDate').value);
+        var endDate = new Date(document.getElementById('endDate').value);
+        var diffInDays = Math.ceil(Math.abs(endDate - startDate) / (1000 * 60 * 60 * 24));
+        var totalPrice = document.getElementById('totalPrice').getAttribute('data-total-price');
+        var value = totalPrice * diffInDays;
+        document.getElementById('priceResult').innerHTML = "Cena za wypożyczenie to: " + value + " zł.";
+        document.getElementById('rentMovieBtn').style.display = 'block';
+    });
+
+    document.getElementById('yes').addEventListener('click', function() {
+        document.getElementById('formHide').style.display = 'none';
+    });
 </script>

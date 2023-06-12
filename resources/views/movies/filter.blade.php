@@ -3,7 +3,6 @@
 
 <div class="container text-white w-50">
     <form action="{{ route('movies.filter') }}" method="GET" class="row">
-        <!-- Pole wyboru gatunku -->
         <div class="form-group col-md-6">
             <label for="genre">Gatunek</label>
             <select name="genre" id="genre" class="form-control">
@@ -22,7 +21,6 @@
                 <option value="Wojenny">Wojenny</option>
             </select>
         </div>
-        <!-- Pole wyboru sortowania -->
         <div class="form-group col-md-6">
             <label for="sort_by">Sortuj według</label>
             <select name="sort_by" id="sort_by" class="form-control">
@@ -39,8 +37,13 @@
             <button type="submit" class="btn btn-secondary custom-btn m-2">Filtruj</button>
         </div>
     </form>
+    <div class="d-flex justify-content-center">
+        <form class="d-flex justify-content-center" role="search" action="{{ route('movies.filter') }}" method="GET">
+            <input class="form-control me-2" type="search" name="search" placeholder="Wpisz tytuł, aby wyszukać..." aria-label="Search">
 
-
+            <button class="btn btn-outline-success" type="submit">Szukaj</button>
+        </form>
+    </div>
 </div>
 
 <div class="container">

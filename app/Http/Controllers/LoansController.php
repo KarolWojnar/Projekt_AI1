@@ -27,38 +27,44 @@ class LoansController extends Controller
             return view('loans.show', ['movie' => $movie]);
         }
 
-    public function rentMovie($id)
+        public function cartMovie($id)
         {
             $movie = Movie::find($id);
-            $userId = Auth::id();
-            $user = User::find($userId);
-
-            if ($movie->available === 'niedostępny') {
-                return redirect()->back()->with('error', 'Ten film jest niedostępny.');
+            if (!$movie) {
+                return redirect()->back()->with('error', 'Film o podanym ID nie został znaleziony.');
             }
 
-            return view('loans.show', ['movie' => $movie,'user' => $user]);
+            $cart = session()->get('cart', []);
+            $cart[] = $movie;
+            session()->put('cart', $cart);
 
+            return redirect()->back()->with('success', 'Film został dodany do koszyka.');
         }
 
-        public function calculatePrice(Request $request): JsonResponse
+        public function deleteFromCart($id)
         {
-            $movieId = $request->input('movieId');
-            $startDate = $request->input('startDate');
-            $endDate = $request->input('endDate');
-            $cost = 0;
+            $cart = session()->get('cart', []);
 
-            DB::statement('CALL calculateThePrice(?, ?, ?, @cost)', [$movieId, $startDate, $endDate]);
-            $result = DB::select('SELECT @cost AS cost');
+            $updatedCart = array_filter($cart, function ($movie) use ($id) {
+                return $movie->id != $id;
+            });
 
-            if (!empty($result)) {
-                $cost = $result[0]->cost;
-            }
+            session()->put('cart', $updatedCart);
 
-            Session::put('priceResult', $cost);
-            return response()->json(['success' => true, 'price' => $cost]);
+            return redirect()->route('loans.show')->with('success', 'Film został usunięty z koszyka.');
         }
 
+        public function cartShow()
+        {
+            $user = Auth::user();
+            $cart = session()->get('cart', []);
+            $totalPrice = 0;
 
+            foreach ($cart as $movie) {
+                $totalPrice += $movie->pricePerDay;
+            }
+
+            return view('loans.show', ['user' => $user, 'cart' => $cart, 'totalPrice' => $totalPrice]);
+        }
 
 }

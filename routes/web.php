@@ -30,8 +30,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/movie/{id}', [MoviesController::class, 'show'])->name('movies.show');
     Route::get('/movies', [MoviesController::class, 'index'])->name('movies.index');
     Route::get('/movies/filter', [MoviesController::class, 'filter'])->name('movies.filter');
-    Route::get('/movie/{id}/loan', [LoansController::class, 'rentMovie'])->name('loans.show')->middleware('auth');
-    Route::post('/calculate-price', [LoansController::class, 'calculatePrice'])->name('calculatePrice');
+    Route::get('/cart/{id}', [LoansController::class, 'cartMovie'])->name('addToCart')->middleware('auth');
+    Route::get('/cart', [LoansController::class, 'cartShow'])->name('loans.show')->middleware('auth');
+    Route::get('/cart/delete/{id}', [LoansController::class, 'deleteFromCart'])->name('deleteFromCart')->middleware('auth');
+    Route::get('/calculate-price', [LoansController::class, 'calculatePrice'])->name('calculatePrice');
     // ADMIN
     Route::get('/editUsersAdmin',  'App\Http\Controllers\AdminPanel\EditUsersController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editUsers');
     Route::get('/editMoviesAdmin',  'App\Http\Controllers\AdminPanel\EditMoviesController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editMovies');

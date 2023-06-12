@@ -1,6 +1,3 @@
-@extends('layouts.header')
-
-@section('content')
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +13,7 @@
         }
     </style>
 </head>
+@include('layouts.header')
 <body>
     <h1 class="text-white">Regulamin</h1><br><br>
     <ol class="text-danger2 fw-bold">
@@ -100,4 +98,3 @@
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-@endsection

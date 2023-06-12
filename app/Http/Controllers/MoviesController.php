@@ -84,8 +84,27 @@ class MoviesController extends Controller
         {
             $movie = Movie::find($id);
 
-            return view('movies.show', ['movie' => $movie]);
+            $cart = session()->get('cart', []);
+
+            return view('movies.show', ['movie' => $movie, 'cart' => $cart]);
         }
+    public function searchMovies(Request $request)
+    {
+        $search = $request->get('search');
+        $category = $request->get('category');
+
+        $movies = Movie::query();
+
+        if ($search) {
+            $movies->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%$search%")
+                    ->orWhereHas('actors', function ($query) use ($search) {
+                        $query->where('actor_name', 'like', "%$search%");
+                    });
+            });
+        }
+        return view('movies.filter', compact('movies', 'categories'));
+    }
 
     public function filter(Request $request)
         {

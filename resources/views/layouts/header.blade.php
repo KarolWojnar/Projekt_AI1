@@ -19,30 +19,44 @@
     </style>
 </head>
 <body class="bg-dark m-3">
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-            <div class="container">
-                <a class="navbar-brand red-after" href="{{ route('home') }}">
-                    <b>Cinema Blu-ray</b>
-                </a>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-                </div>
-                <div>
-                    @guest
-                        <a href="{{ route('login') }}" class="btn btn-block custom-btn"><b>Zaloguj</b></a>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark m-3">
+        <a class="navbar-brand red-after" href="{{ route('home') }}">
+            <b>Cinema Blu-ray</b>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                <a class="nav-link red-after" href="{{ route('movies.index') }}">Nasze Wszystkie filmy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link red-after" href="{{ route('regulamin') }}">Regulamin</a>
+                </li>
+                @if(Auth::check() && Auth::user()->isAdmin)
+                    <li class="nav-item">
+                        <a class="nav-link red-after" href="{{ route('editMovies') }}">Edycja Filmów</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link red-after" href="{{ route('editUsers') }}">Edycja użytkowników</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link red-after" href="{{ route('editUsers') }}"><strong>ZAMÓWIENIA</strong></a>
+                    </li>
+                @endif
+            </ul>
+            <div>
+                @guest
+                <a href="{{ route('login') }}" class="btn btn-block custom-btn m-2"><b>Zaloguj</b></a>
                 @else
-                    @if (!Request::capture()->is('users/' . Auth::id()))
-                        <a href="/users/{{ Auth::id() }}" class="w-40 h-100 m-2 btn btn-block custom-btn"><b>Twój profil</b></a>
-                    @endif
-                        <a href="{{ route('logout') }}" class=" btn btn-block custom-btn"><b>Wyloguj</b></a>
+                <a href="{{ route('loans.show') }}" class=" btn btn-block custom-btn m-2"><b>Koszyk</b></a>
+                <a href="/users/{{ Auth::id() }}" class="btn btn-block custom-btn m-2"><b>Twój profil</b></a>
+                <a href="{{ route('logout') }}" class="btn btn-block custom-btn m-2"><b>Wyloguj</b></a>
                 @endguest
-                </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
         <main class="py-4">
             @yield('content')
