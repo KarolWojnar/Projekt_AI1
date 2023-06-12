@@ -1,56 +1,16 @@
 @include('layouts.css')
 @include('layouts.header')
-
-
 <div class="container">
     <div class="row text-white">
         @if (empty($cart))
         <h1>Twój koszyk jest pusty</h1>
         @else
-        <div class="col-lg-6">
-            <div class=" text-center">
-                <form method="get" action="">
-                    @csrf
-                    <div class="row justify-content-center">
-                        @php
-                        $minDate = now()->addDay(1)->toDateString();
-                        $maxDate = now()->addDays(14)->toDateString();
-                        @endphp
-                        <h3>Witaj {{ $user->first_name }}. Twoje filmy to:</h3>
-                        <div class="container">
-                            <div class="row d-flex flex-wrap justify-content-center ">
-                                @foreach ($cart as $movie)
-                                <div class="d-inline-block card bg-dark2 text-white m-2" style="width: 11rem">
-                                    <h6>"{{ $movie->title }}"</h6>
-                                    <img src="{{ asset($movie->img_path) }}" class="img-fluid" alt="{{ $movie->title }}">
-                                    <p class="text-small">Cena za dzień: {{ $movie->pricePerDay }} zł</p>
-                                    <a href="{{ route('deleteFromCart', ['id' => $movie->id]) }}" class="btn btn-block custom-btn"><b>Usuń produkt</b></a>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group w-50 mx-auto mt-3">
-                        <label for="startDate">Data początku wypożyczenia:</label>
-                        <input type="date" id="startDate" name="startDate" value="" class="form-control" min="{{ $minDate }}" max="{{ date('Y-m-d', strtotime('+7 days')) }}" required>
-                    </div>
-
-                    <div id="endDateWrapper" class="form-group w-50 mx-auto" style="display: none;">
-                        <label for="endDate">Data końca wypożyczenia:</label>
-                        <input type="date" id="endDate" name="endDate" value="" class="form-control" min="{{ $minDate }}" required>
-                    </div>
-
-                    <button type="button" id="checkPriceBtn" class="btn custom-btn mt-3 mx-auto" disabled style="pointer-events: none; cursor: default;">Sprawdź cenę</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="col-lg-6 text-white text-center">
+        <div class="text-white text-center">
             <div id="formHide" style="display: block;">
                 <h2 class="text-dark bg-danger">ZANIM WYPOŻYCZYSZ</h2>
                 <h6>Czy Twoje dane adresowe są poprawnie podane na profilu?</h6>
                 <div class="text-white M-AUTO">
-                    <button href="" id="yes" class="btn custom-btn mt-3 col-lg-4" onclick="setEnableLoan(event, {{ $user->id }})">TAK</button>
+                    <button id="yes" class="btn custom-btn mt-3 col-lg-4" onclick="setEnableLoan(event, {{ $user->id }})">TAK</button>
                     <a class="btn custom-btn mt-3 col-lg-4" onclick="toggleEditPanel(event, {{ $user->id }})">SPRAWADŹ</a>
                 </div>
                 <li id="edit-panel-{{ $user->id }}" class="list-group-item bg-dark text-white edit-panel w-50 mx-auto" style="display: none;">
@@ -70,17 +30,60 @@
                     </form>
                 </li>
             </div>
-            <div class="mt-3">
-                <h4 id="priceResult"></h4>
+        </div>
+        <div class="">
+            <div class=" text-center">
+                <form method="get" action="{{route('toPayment')}}" >
+                    @csrf
+                    <input type="hidden" name="stripeToken" id="stripeToken" value="">
+                    <div class="row justify-content-center">
+                        @php
+                        $minDate = now()->addDay(1)->toDateString();
+                        $maxDate = now()->addDays(14)->toDateString();
+                        @endphp
+                        <h3>Witaj {{ $user->first_name }}. Twoje filmy to:</h3>
+                        <div class="container">
+                            <div class="row d-flex flex-wrap justify-content-center">
+                                @foreach ($cart as $movie)
+                                <div class="d-inline-block card bg-dark2 text-white m-2" style="width: 17rem">
+                                    <h6>"{{ $movie->title }}"</h6>
+                                    <img src="{{ asset($movie->img_path) }}" class="img-fluid" alt="{{ $movie->title }}">
+                                    <p class="text-small">Cena za dzień: {{ $movie->pricePerDay }} zł</p>
+                                        <a href="{{ route('deleteFromCart', ['id' => $movie->id]) }}" class="btn custom-btn mb-100"><b>Usuń produkt</b></a>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @if ($sum > 1)
+                    <h5 class="text-danger2">Za wypożyczenie {{$sum}} filmów dostajesz {{$prom*100}}% zniżki!</h5>
+                    @endif
+                    <div class="row" id="rent" style="height: 15rem">
+                        <div style="display: none;" id="showMe" class="col-lg-6">
+                            <div class="form-group w-50 mx-auto mt-3">
+                                <label for="startDate">Data początku wypożyczenia:</label>
+                                <input type="date" id="startDate" name="startDate" value="" class="form-control" min="{{ $minDate }}" max="{{ date('Y-m-d', strtotime('+7 days')) }}" required>
+                            </div>
+                            <div id="endDateWrapper" class="form-group w-50 mx-auto" style="display: none;">
+                                <label for="endDate">Data końca wypożyczenia:</label>
+                                <input type="date" id="endDate" name="endDate" value="" class="form-control" min="{{ $minDate }}" required>
+                            </div>
+                            <button type="button" id="checkPriceBtn" class="btn custom-btn mt-3 mx-auto" disabled style="pointer-events: none; cursor: default;">Sprawdź cenę</button>
+                        </div>
+                        <div class="col-lg-6 mt-auto mb-auto">
+                            <h4 id="priceResult"></h4>
+                            <button type="submit" id="rentMovieBtn" class="btn custom-btn mt-3 mx-auto" style="display: none;" disabled>Przejdź do płatności</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <button type="submit" id="rentMovieBtn" class="btn custom-btn mt-3 mx-auto" style="display: none;" disabled>Przejdź do płatności</button>
         </div>
         @endif
     </div>
+</div>
+</div>
     <div id="totalPrice" data-total-price="{{ $totalPrice }}"></div>
 </div>
-
-
 <script>
 function setEnableLoan(event, userId) {
     event.preventDefault();
@@ -128,11 +131,22 @@ function setEnableLoan(event, userId) {
         var diffInDays = Math.ceil(Math.abs(endDate - startDate) / (1000 * 60 * 60 * 24));
         var totalPrice = document.getElementById('totalPrice').getAttribute('data-total-price');
         var value = totalPrice * diffInDays;
-        document.getElementById('priceResult').innerHTML = "Cena za wypożyczenie to: " + value + " zł.";
+        document.getElementById('priceResult').innerHTML = "Cena za wypożyczenie to: " + value.toFixed(2) + " zł.";
         document.getElementById('rentMovieBtn').style.display = 'block';
     });
 
     document.getElementById('yes').addEventListener('click', function() {
         document.getElementById('formHide').style.display = 'none';
+        document.getElementById('showMe').style.display = 'block';
+        document.getElementById('rent').scrollIntoView({ behavior: 'smooth' });
     });
+
+    document.getElementById('rentMovieBtn').addEventListener('click', function() {
+        var startDate = new Date(document.getElementById('startDate').value);
+        var endDate = new Date(document.getElementById('endDate').value);
+        var diffInDays = Math.ceil(Math.abs(endDate - startDate) / (1000 * 60 * 60 * 24));
+        var totalPrice = document.getElementById('totalPrice').getAttribute('data-total-price');
+        var value = totalPrice * diffInDays;
+    })
+
 </script>

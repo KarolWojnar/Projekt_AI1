@@ -59,12 +59,16 @@ class LoansController extends Controller
             $user = Auth::user();
             $cart = session()->get('cart', []);
             $totalPrice = 0;
-
+            $sum = 0;
             foreach ($cart as $movie) {
                 $totalPrice += $movie->pricePerDay;
+                $sum += 1;
             }
+            $prom = 0.05*$sum;
+            if($prom >= 0.3) $prom = 0.3;
+            $totalPrice = $totalPrice*(1- $prom);
 
-            return view('loans.show', ['user' => $user, 'cart' => $cart, 'totalPrice' => $totalPrice]);
+            return view('loans.show', ['user' => $user, 'cart' => $cart, 'totalPrice' => $totalPrice, 'sum' => $sum, 'prom' => $prom]);
         }
 
 }
