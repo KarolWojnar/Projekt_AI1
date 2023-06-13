@@ -35,7 +35,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/cart/{id}', [LoansController::class, 'cartMovie'])->name('addToCart')->middleware('auth');
     Route::get('/cart', [LoansController::class, 'cartShow'])->name('loans.show')->middleware('auth');
     Route::get('/cart/delete/{id}', [LoansController::class, 'deleteFromCart'])->name('deleteFromCart')->middleware('auth');
-    Route::get('/payment', [PaymentController::class, 'show'])->name('toPayment');
+    Route::post('/payment', [PaymentController::class, 'show'])->name('toPayment');
     Route::post('/process_payment', [PaymentController::class, 'processPayment'])->name('process_payment');
     Route::get('/payment/success', function () {return view('payment.success');})->name('payment_success');
     Route::get('/payment/error', function () {return view('payment.error');})->name('payment_error');

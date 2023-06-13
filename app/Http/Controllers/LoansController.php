@@ -34,7 +34,7 @@ class LoansController extends Controller
                 return redirect()->back()->with('error', 'Film o podanym ID nie został znaleziony.');
             }
 
-            $cart = session()->get('cart', []);
+            $cart = session()->pull('cart', []);
             $cart[] = $movie;
             session()->put('cart', $cart);
 

@@ -32,10 +32,9 @@
             </div>
         </div>
         <div class="">
-            <div class=" text-center">
-                <form method="get" action="{{route('toPayment')}}" >
+            <div class="text-center">
+                <form method="post" action="{{route('toPayment')}}" >
                     @csrf
-                    <input type="hidden" name="stripeToken" id="stripeToken" value="">
                     <div class="row justify-content-center">
                         @php
                         $minDate = now()->addDay(1)->toDateString();
@@ -71,7 +70,8 @@
                             <button type="button" id="checkPriceBtn" class="btn custom-btn mt-3 mx-auto" disabled style="pointer-events: none; cursor: default;">Sprawdź cenę</button>
                         </div>
                         <div class="col-lg-6 mt-auto mb-auto">
-                            <h4 id="priceResult"></h4>
+                            <input type="text" id="priceResult" class="h3 bg-dark w-100 text-center" onfocus="this.blur()" name="priceResult" style="display: none;border: none;" readonly>
+                            <input type="text" id="priceResult2" onfocus="this.blur()" name="priceResult2" style="display: none;border: none;" readonly>
                             <button type="submit" id="rentMovieBtn" class="btn custom-btn mt-3 mx-auto" style="display: none;" disabled>Przejdź do płatności</button>
                         </div>
                     </div>
@@ -126,14 +126,17 @@ function setEnableLoan(event, userId) {
     }
 
     document.getElementById('checkPriceBtn').addEventListener('click', function() {
-        var startDate = new Date(document.getElementById('startDate').value);
-        var endDate = new Date(document.getElementById('endDate').value);
-        var diffInDays = Math.ceil(Math.abs(endDate - startDate) / (1000 * 60 * 60 * 24));
-        var totalPrice = document.getElementById('totalPrice').getAttribute('data-total-price');
-        var value = totalPrice * diffInDays;
-        document.getElementById('priceResult').innerHTML = "Cena za wypożyczenie to: " + value.toFixed(2) + " zł.";
-        document.getElementById('rentMovieBtn').style.display = 'block';
-    });
+    var startDate = new Date(document.getElementById('startDate').value);
+    var endDate = new Date(document.getElementById('endDate').value);
+    var diffInDays = Math.ceil(Math.abs(endDate - startDate) / (1000 * 60 * 60 * 24));
+    var totalPrice = document.getElementById('totalPrice').getAttribute('data-total-price');
+    var value = totalPrice * diffInDays;
+    document.getElementById('priceResult').style.display = 'block';
+    document.getElementById('priceResult').value = "Cena za wypożyczenie to: " + value.toFixed(2) + " zł.";
+    document.getElementById('priceResult2').value = value.toFixed(2);
+    document.getElementById('rentMovieBtn').style.display = 'block';
+});
+
 
     document.getElementById('yes').addEventListener('click', function() {
         document.getElementById('formHide').style.display = 'none';
