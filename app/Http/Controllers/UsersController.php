@@ -22,6 +22,12 @@ class UsersController extends Controller
     {
         $user = User::find($id);
 
+        $user = User::find($id);
+
+        if (Gate::denies('view-user', $user)) {
+            abort(403, 'Nie masz dostępu do tej strony.');
+        }
+
         return view('users.edit', compact('user'));
     }
 

@@ -10,7 +10,7 @@
                 @if ($user->late_fee > 0)
                     <div class="alert alert-info">
                         <h3 class="text-danger">Masz {{ $user->late_fee }} zł długu</h3>
-                        <form method="post" action="{{ route('toPayment') }}">
+                        <form method="post" action="{{ route('late_fee') }}">
                             @csrf
                             <input type="hidden" name="late_fee" value="{{ $user->late_fee }}">
                             <button type="submit" class="btn btn-danger mt-3">Opłać karę</button>

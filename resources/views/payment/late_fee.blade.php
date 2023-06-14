@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h2 class="mb-4">Formularz płatności</h2>
-                <form action="{{route('process_payment')}}" method="POST" >
+                <form action="{{route('process_payment')}}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="price" class="form-label">Kara do opłacenia:</label><br>

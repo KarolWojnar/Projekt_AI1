@@ -40,7 +40,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/process_payment', [PaymentController::class, 'processPayment'])->name('process_payment');
     Route::group(['middleware' => 'prevent-back'], function () {
         Route::post('/payment', [PaymentController::class, 'show'])->name('toPayment');
-        Route::post('/late_fee', [PaymentController::class, 'show2'])->name('late_fee');
+        Route::post('/late_fee', [PaymentController::class, 'late_fee'])->name('late_fee');
         Route::get('/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment_success');
         Route::get('/payment/error', [PaymentController::class, 'paymentError'])->name('payment_error');
     });

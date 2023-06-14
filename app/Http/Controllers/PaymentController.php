@@ -18,7 +18,7 @@ class PaymentController extends Controller
         return view('payment.index', ['user' => $user, 'cart' => $cart, 'totalPrice' => $totalPrice, 'startDate' => $startDate, 'endDate' => $endDate]);
     }
 
-    public function show2(Request $request)
+    public function late_fee(Request $request)
     {
         $paymentData = $request->all();
         $user = Auth::user();
@@ -32,8 +32,7 @@ class PaymentController extends Controller
     {
         // Ustawienie klucza tajnego Stripe
         $stripe = new \Stripe\StripeClient('sk_test_51NI4MxBaqWYTYCZyzt2YuKVk3MOqAbdZDDQNrqhLJLVnAvviWKzSfn7vujXRnpGPQTF0l2JOx2peihenc4YCdJGN00TDyQ12BC');
-
-
+        dd($request);
         // Utworzenie płatności na podstawie tokenu płatności
         $token = $request->input('stripeToken');
         $source = $stripe->sources->create([
@@ -43,15 +42,19 @@ class PaymentController extends Controller
         $totalPrice = $request->input('totalPrice');
 
         try {
-            $stripe->paymentIntents->create([
+            $paymentIntent = $stripe->paymentIntents->create([
                 'amount' => $totalPrice*100,
                 'currency' => 'pln',
                 'description' => 'Opłata za wypożyczenie filmu',
                 'source' => $source->id,
               ]);
+              $paymentIntentId = $paymentIntent->id;
+              $confirmedPaymentIntent = $stripe->paymentIntents->confirm($paymentIntentId);
+              $paymentStatus = $confirmedPaymentIntent->status;
+              if($paymentStatus === 'succeeded') {return redirect()->route('payment_success');}
+              else {return redirect()->route('payment_error')->with('error', 'Nieudana płatność.');}
 
             // Płatność zakończona sukcesem
-            return redirect()->route('payment_success');
         } catch (\Exception $e) {
             // Obsługa błędu płatności
             return redirect()->route('payment_error')->with('error', $e->getMessage());

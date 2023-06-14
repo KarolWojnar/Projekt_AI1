@@ -66,17 +66,6 @@
             }
             });
         });
-        function stripeTokenHandler(token) {
-            // Wysyłanie tokenu płatności do serwera i przekierowanie do strony potwierdzenia
-            var form = document.getElementById('payment-form');
-            var hiddenInput = document.createElement('input');
-            hiddenInput.setAttribute('type', 'hidden');
-            hiddenInput.setAttribute('name', 'stripeToken');
-            hiddenInput.setAttribute('value', token.id);
-            cardErrors.textContent = token.error.message;
-            form.appendChild(hiddenInput);
-            form.submit();
-        }
     </script>
 </body>
 
