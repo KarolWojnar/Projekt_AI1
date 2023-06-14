@@ -20,12 +20,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::share('totalAmount', $this->getTotalAmount());
-    }
-    public function getTotalAmount()
-    {
-        $cart = session()->get('cart', []);
-        $totalAmount = count($cart);
-        return $totalAmount;
     }
 }
