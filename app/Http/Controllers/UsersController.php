@@ -40,7 +40,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect()->route('editUsers', $user->id)->with('success', 'Dane użytkownika zostały zaktualizowane.');
+        return redirect()->back()->with('success', 'Dane użytkownika zostały zaktualizowane.');
     }
     public function update2(Request $request, $id)
     {
@@ -61,7 +61,6 @@ class UsersController extends Controller
     $user = User::find($id);
 
     if (!$user) {
-
         return redirect()->back()->with('error', 'Użytkownik nie został znaleziony.');
     }
 

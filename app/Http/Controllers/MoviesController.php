@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Movie;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class MoviesController extends Controller
 {
@@ -83,10 +84,10 @@ class MoviesController extends Controller
     public function show($id)
         {
             $movie = Movie::find($id);
-
+            $user = Auth::user();
             $cart = session()->get('cart', []);
 
-            return view('movies.show', ['movie' => $movie, 'cart' => $cart]);
+            return view('movies.show', ['movie' => $movie, 'cart' => $cart, 'user' => $user]);
         }
     public function searchMovies(Request $request)
     {

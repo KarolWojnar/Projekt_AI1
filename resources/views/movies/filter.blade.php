@@ -66,3 +66,6 @@
         @endforeach
     </div>
 </div>
+<div id="support-container">
+    @include('layouts.support')
+</div>

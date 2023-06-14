@@ -50,7 +50,7 @@
                 @guest
                 <a href="{{ route('login') }}" class="btn btn-block custom-btn m-2"><b>Zaloguj</b></a>
                 @else
-                <a href="{{ route('loans.show') }}" class=" btn btn-block custom-btn m-2"><b>Koszyk</b></a>
+                <a href="{{ route('loans.show') }}" class="btn btn-block custom-btn m-2"><b>Koszyk&lpar;{{ $totalAmount }}&rpar;</b></a>
                 <a href="/users/{{ Auth::id() }}" class="btn btn-block custom-btn m-2"><b>Twój profil</b></a>
                 <a href="{{ route('logout') }}" class="btn btn-block custom-btn m-2"><b>Wyloguj</b></a>
                 @endguest

@@ -4,3 +4,6 @@
         <h1>Płatność zakończona sukcesem!</h1>
         <p>Dziękujemy za dokonanie płatności.</p>
     </div>
+    <div id="support-container">
+        @include('layouts.support')
+    </div>

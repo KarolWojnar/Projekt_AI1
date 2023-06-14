@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('city');
             $table->string('password');
+            $table->decimal('late_fee')->default(0);
             $table->boolean('isAdmin')->default(false);
         });
         Schema::table('loans', function (Blueprint $table) {

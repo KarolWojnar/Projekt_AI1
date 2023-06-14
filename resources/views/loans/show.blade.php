@@ -150,6 +150,12 @@ function setEnableLoan(event, userId) {
         var diffInDays = Math.ceil(Math.abs(endDate - startDate) / (1000 * 60 * 60 * 24));
         var totalPrice = document.getElementById('totalPrice').getAttribute('data-total-price');
         var value = totalPrice * diffInDays;
-    })
-
+        document.getElementById('priceResult').style.display = 'block';
+        document.getElementById('priceResult').value = "Cena za wypożyczenie to: " + value.toFixed(2) + " zł.";
+        document.getElementById('priceResult2').value = value.toFixed(2);
+        document.getElementById('rentMovieBtn').style.display = 'block';
+        })
 </script>
+<div id="support-container">
+    @include('layouts.support')
+</div>

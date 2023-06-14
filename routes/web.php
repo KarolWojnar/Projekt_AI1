@@ -35,10 +35,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/cart/{id}', [LoansController::class, 'cartMovie'])->name('addToCart')->middleware('auth');
     Route::get('/cart', [LoansController::class, 'cartShow'])->name('loans.show')->middleware('auth');
     Route::get('/cart/delete/{id}', [LoansController::class, 'deleteFromCart'])->name('deleteFromCart')->middleware('auth');
-    Route::post('/payment', [PaymentController::class, 'show'])->name('toPayment');
     Route::post('/process_payment', [PaymentController::class, 'processPayment'])->name('process_payment');
-    Route::get('/payment/success', function () {return view('payment.success');})->name('payment_success');
-    Route::get('/payment/error', function () {return view('payment.error');})->name('payment_error');
+    Route::group(['middleware' => 'prevent-back'], function () {
+        Route::post('/payment', [PaymentController::class, 'show'])->name('toPayment');
+        Route::post('/late_fee', [PaymentController::class, 'show2'])->name('late_fee');
+        Route::get('/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment_success');
+        Route::get('/payment/error', [PaymentController::class, 'paymentError'])->name('payment_error');
+    });
+
     // ADMIN
     Route::get('/editUsersAdmin',  'App\Http\Controllers\AdminPanel\EditUsersController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editUsers');
     Route::get('/editMoviesAdmin',  'App\Http\Controllers\AdminPanel\EditMoviesController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editMovies');

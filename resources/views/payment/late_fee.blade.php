@@ -7,25 +7,8 @@
                 <form action="{{route('process_payment')}}" method="POST" >
                     @csrf
                     <div class="mb-3">
-                        <label for="price" class="form-label">Cena:</label><br>
+                        <label for="price" class="form-label">Kara do opłacenia:</label><br>
                         <input type="text" class="orm-control-static lead" onfocus="this.blur()" value="{{ $totalPrice }}" name="totalPrice" style="display: none;border: none;"><p class="form-control-static lead"><strong>{{ $totalPrice }} zł</strong></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="start" class="form-label">Początek wypożyczenia:</label>
-                        <p class="form-control-static lead"><strong>{{ $startDate }}</strong></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="end" class="form-label">Koniec wypożyczenia:</label>
-                        <p class="form-control-static lead"><strong>{{ $endDate }}</strong></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="movies" class="form-label">Filmy:</label>
-                            <p class="form-control-static lead">
-                                @foreach ($cart as $movie)
-                                <strong>"{{ $movie->title }}"{{ $loop->last ? '' : ',' }}</strong>
-                                @endforeach
-                            </p>
-
                     </div>
                     <div id="card-element" class="form-control"></div>
                     <div id="card-errors" class="invalid-feedback"></div>
@@ -79,7 +62,3 @@
         }
     </script>
 </body>
-
-<div id="support-container">
-    @include('layouts.support')
-</div>

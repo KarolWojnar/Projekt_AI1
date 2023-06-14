@@ -15,7 +15,7 @@
                 <p class="card-text"><strong>Rok premiery:</strong> {{ $movie->release }}</p>
                 <p class="card-text"><strong>Czas trwania:</strong> {{ $movie->longTime }} minut</p>
                 <p class="card-text"><strong>Ocena:</strong> {{ $movie->rate }}</p>
-                <p class="card-text"><strong>Cena za dzień wypożyczenia: </strong> {{ $movie->pricePerDay }}</p>
+                <p class="card-text"><strong>Cena za dzień wypożyczenia: </strong> {{ $movie->pricePerDay }} zł</p>
                 <div class="d-flex justify-content-center">
                     @if ($movie->available == 'dostępny')
                         <form action="{{ route('movies.show', ['id' => $movie->id]) }}" method="POST">
@@ -23,7 +23,8 @@
                             @guest
                                 <a href="{{ route('login') }}" class="btn btn-block custom-btn"><b>Zaloguj się by wypożyczyć "{{ $movie->title }}"</b></a>
                             @else
-                                @php
+                                @if ($user->late_fee == 0)
+                                    @php
                                     $isInCart = false;
                                     foreach ($cart as $cartMovie) {
                                         if ($cartMovie->id == $movie->id) {
@@ -31,11 +32,14 @@
                                             break;
                                         }
                                     }
-                                @endphp
-                                @if ($isInCart)
-                                <p>Film "{{ $movie->title }}" znajduje się już w koszyku.</p>
+                                    @endphp
+                                    @if ($isInCart)
+                                    <p>Film "{{ $movie->title }}" znajduje się już w koszyku.</p>
+                                    @else
+                                    <a href="{{ route('addToCart', ['id' => $movie->id]) }}" class="btn btn-block custom-btn"><b>Dodaj do koszyka film "{{ $movie->title }}"</b></a>
+                                    @endif
                                 @else
-                                <a href="{{ route('addToCart', ['id' => $movie->id]) }}" class="btn btn-block custom-btn"><b>Dodaj do koszyka film "{{ $movie->title }}"</b></a>
+                                    <a href="" class="text-danger2">Aby dodać do koszyka film najpierw opłać karę.</h5>
                                 @endif
                             @endguest
                         </form>
@@ -46,4 +50,7 @@
             </div>
         </div>
     </div>
+</div>
+<div id="support-container">
+    @include('layouts.support')
 </div>

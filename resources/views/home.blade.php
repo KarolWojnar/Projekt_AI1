@@ -69,3 +69,6 @@
     <script src="js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+<div id="support-container">
+    @include('layouts.support')
+</div>
