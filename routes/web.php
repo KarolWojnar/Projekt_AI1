@@ -10,6 +10,8 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\RegulaminController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProblemsController;
+
 Auth::routes();
 Route::group(['middleware' => ['web']], function () {
     Route::get('/home', function () {return view('home');})->name('home');
@@ -46,7 +48,12 @@ Route::group(['middleware' => ['web']], function () {
     // ADMIN
     Route::get('/editUsersAdmin',  'App\Http\Controllers\AdminPanel\EditUsersController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editUsers');
     Route::get('/editMoviesAdmin',  'App\Http\Controllers\AdminPanel\EditMoviesController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editMovies');
+    Route::get('/supportPanel',  [ProblemsController::class, 'show'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('support');
+    Route::post('/supportPanel-send',  [ProblemsController::class, 'create'])->name('addProblem');
+    // Route::get('/editMoviesAdmin',  'App\Http\Controllers\AdminPanel\EditMoviesController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('loans');
+    Route::get('/supportPanel/{id}', [ProblemsController::class, 'updateStatus'])->name('problem.update');
     Route::get('/movies/delete/{id}', [MoviesController::class, 'delete'])->name('movies.delete');
+    Route::get('/problems/delete/{id}', [ProblemsController::class, 'delete'])->name('problem.delete');
     Route::get('/users/delete/{id}', [UsersController::class, 'delete'])->name('users.delete');
     Route::put('/movies/{id}', [MoviesController::class, 'update'])->name('movies.update');
     Route::post('/movies', [MoviesController::class, 'store'])->name('movies.store');

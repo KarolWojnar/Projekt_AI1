@@ -17,6 +17,7 @@ class PaymentController extends Controller
         $endDate = $paymentData['endDate'];
         return view('payment.index', ['user' => $user, 'cart' => $cart, 'totalPrice' => $totalPrice, 'startDate' => $startDate, 'endDate' => $endDate]);
     }
+
     public function show2(Request $request)
     {
         $paymentData = $request->all();

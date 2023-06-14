@@ -18,8 +18,8 @@
     }
     </style>
 </head>
-<body class="bg-dark m-3">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark m-3">
+<body class="bg-dark" style="margin-left: 1rem; margin-right: 1rem;">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand red-after" href="{{ route('home') }}">
             <b>Cinema Blu-ray</b>
         </a>
@@ -28,12 +28,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                <a class="nav-link red-after" href="{{ route('movies.index') }}">Nasze Wszystkie filmy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link red-after" href="{{ route('regulamin') }}">Regulamin</a>
-                </li>
                 @if(Auth::check() && Auth::user()->isAdmin)
                     <li class="nav-item">
                         <a class="nav-link red-after" href="{{ route('editMovies') }}">Edycja Filmów</a>
@@ -43,6 +37,17 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link red-after" href="{{ route('editUsers') }}"><strong>ZAMÓWIENIA</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link red-after" href="{{ route('support') }}">Zgłoszenia problemów</a>
+                    </li>
+
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link red-after" href="{{ route('movies.index') }}">Nasze Wszystkie filmy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link red-after" href="{{ route('regulamin') }}">Regulamin</a>
                     </li>
                 @endif
             </ul>

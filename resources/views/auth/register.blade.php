@@ -88,7 +88,7 @@
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>Hasło musi zawierać minimum 8 znaków</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -101,7 +101,6 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4 bg-dark">
                                 <button type="submit" class="btn btn-secondary custom-btn">
