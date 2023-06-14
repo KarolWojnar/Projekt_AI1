@@ -34,23 +34,22 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/movie/{id}', [MoviesController::class, 'show'])->name('movies.show');
     Route::get('/movies', [MoviesController::class, 'index'])->name('movies.index');
     Route::get('/movies/filter', [MoviesController::class, 'filter'])->name('movies.filter');
+    Route::get('/movies/search', [MoviesController::class, 'searchMovies'])->name('movies.search');
     Route::get('/cart/{id}', [LoansController::class, 'cartMovie'])->name('addToCart')->middleware('auth');
     Route::get('/cart', [LoansController::class, 'cartShow'])->name('loans.show')->middleware('auth');
     Route::get('/cart/delete/{id}', [LoansController::class, 'deleteFromCart'])->name('deleteFromCart')->middleware('auth');
     Route::post('/process_payment', [PaymentController::class, 'processPayment'])->name('process_payment');
-    Route::group(['middleware' => 'prevent-back'], function () {
-        Route::post('/payment', [PaymentController::class, 'show'])->name('toPayment');
-        Route::post('/late_fee', [PaymentController::class, 'late_fee'])->name('late_fee');
-        Route::get('/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment_success');
-        Route::get('/payment/error', [PaymentController::class, 'paymentError'])->name('payment_error');
-    });
+    Route::post('/payment', [PaymentController::class, 'show'])->name('toPayment');
+    Route::post('/late_fee', [PaymentController::class, 'late_fee'])->name('late_fee');
+    Route::get('/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment_success');
+    Route::get('/payment/error', [PaymentController::class, 'paymentError'])->name('payment_error');
 
     // ADMIN
     Route::get('/editUsersAdmin',  'App\Http\Controllers\AdminPanel\EditUsersController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editUsers');
     Route::get('/editMoviesAdmin',  'App\Http\Controllers\AdminPanel\EditMoviesController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editMovies');
     Route::get('/supportPanel',  [ProblemsController::class, 'show'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('support');
     Route::post('/supportPanel-send',  [ProblemsController::class, 'create'])->name('addProblem');
-    // Route::get('/editMoviesAdmin',  'App\Http\Controllers\AdminPanel\EditMoviesController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('loans');
+    Route::get('/loansAdmin',  [LoansController::class, 'loansShowAll'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('loans');
     Route::get('/supportPanel/{id}', [ProblemsController::class, 'updateStatus'])->name('problem.update');
     Route::get('/movies/delete/{id}', [MoviesController::class, 'delete'])->name('movies.delete');
     Route::get('/problems/delete/{id}', [ProblemsController::class, 'delete'])->name('problem.delete');

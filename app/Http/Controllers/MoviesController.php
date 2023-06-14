@@ -89,7 +89,7 @@ class MoviesController extends Controller
 
             return view('movies.show', ['movie' => $movie, 'cart' => $cart, 'user' => $user]);
         }
-    public function searchMovies(Request $request)
+        public function searchMovies(Request $request)
     {
         $search = $request->get('search');
         $category = $request->get('category');
@@ -98,13 +98,13 @@ class MoviesController extends Controller
 
         if ($search) {
             $movies->where(function ($query) use ($search) {
-                $query->where('title', 'like', "%$search%")
-                    ->orWhereHas('actors', function ($query) use ($search) {
-                        $query->where('actor_name', 'like', "%$search%");
-                    });
+                $query->where('title', 'like', "%$search%");
             });
         }
-        return view('movies.filter', compact('movies', 'categories'));
+
+        $movies = $movies->get();
+
+        return view('movies.filter', compact('movies'));
     }
 
     public function filter(Request $request)

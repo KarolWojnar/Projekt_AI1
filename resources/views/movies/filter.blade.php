@@ -33,15 +33,18 @@
                 <option value="length2">Długość filmu rosnąca</option>
             </select>
         </div>
-        <div class="form-group col-30 text-center">
-            <button type="submit" class="btn btn-secondary custom-btn m-2">Filtruj</button>
+        <div class="form-group col-12 text-center">
+            <button type="submit" class="btn custom-btn m-2">Filtruj</button>
         </div>
     </form>
-    <div class="d-flex justify-content-center">
-        <form class="d-flex justify-content-center" role="search" action="{{ route('movies.filter') }}" method="GET">
-            <input class="form-control me-2" type="search" name="search" placeholder="Wpisz tytuł, aby wyszukać..." aria-label="Search">
-
-            <button class="btn btn-outline-success" type="submit">Szukaj</button>
+    <div class="d-flex justify-content-center m-3">
+        <form class="form-inline" role="search" action="{{ route('movies.search') }}" method="GET">
+            <div class="input-group">
+                <input class="form-control" type="search" name="search" placeholder="Wpisz tytuł, aby wyszukać..." aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn custom-btn m-2" type="submit">Szukaj</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
@@ -49,18 +52,18 @@
 <div class="container">
     <div class="row d-flex flex-wrap justify-content-center">
         @foreach($movies as $movie)
-        <div class="d-inline-block card bg-dark2 text-white m-3" style="width: 18rem;">
+        <div class="card bg-dark2 text-white m-3" style="width: 18rem;">
             <img src="{{ asset($movie->img_path) }}" class="card-img-top" alt="">
             <div class="card-body">
-            <h6 class="card-title text-danger2"><b>{{ $movie->title }}</b></h6>
+                <h6 class="card-title text-danger2"><b>{{ $movie->title }}</b></h6>
             </div>
             <ul class="list-group list-group-flush bg-secondary">
-            <li class="list-group-item bg-dark2 text-white">Reżyser: <b>{{ $movie->director }}</b></li>
-            <li class="list-group-item bg-dark3">Rok premiery: <b>{{ $movie->release }}</b></li>
-            <li class="list-group-item bg-dark3">Ocena: <b class="text-white">{{ $movie->rate }}</b></li>
+                <li class="list-group-item bg-dark2 text-white">Reżyser: <b>{{ $movie->director }}</b></li>
+                <li class="list-group-item bg-dark3">Rok premiery: <b>{{ $movie->release }}</b></li>
+                <li class="list-group-item bg-dark3">Ocena: <b class="text-white">{{ $movie->rate }}</b></li>
             </ul>
             <div class="card-body bg-dark mb-1">
-            <a href="/movie/{{ $movie->id }}" class="w-100 h-100 btn btn-block custom-btn"><b>Przejdź do filmu</b></a>
+                <a href="/movie/{{ $movie->id }}" class="btn btn-block custom-btn"><b>Przejdź do filmu</b></a>
             </div>
         </div>
         @endforeach

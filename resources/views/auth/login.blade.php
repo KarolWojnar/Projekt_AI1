@@ -37,11 +37,6 @@
                                 @enderror
                             </div>
                         </div>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> cce75a64d2c95dceede8bcf1e3a98cb78e849b6a
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4 bg-dark">
                                 <button type="submit" class="btn btn-secondary custom-btn">
@@ -56,3 +51,6 @@
     </div>
 </div>
 @endsection
+<div id="support-container">
+    @include('layouts.support')
+</div>

@@ -12,11 +12,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="start" class="form-label">Początek wypożyczenia:</label>
-                        <p class="form-control-static lead"><strong>{{ $startDate }}</strong></p>
+                        <input type="text" class="orm-control-static lead" onfocus="this.blur()" value="{{ $startDate }}" name="startDate" style="display: none;border: none;"><p class="form-control-static lead"><strong>{{ $startDate }}</strong></p>
                     </div>
                     <div class="mb-3">
                         <label for="end" class="form-label">Koniec wypożyczenia:</label>
-                        <p class="form-control-static lead"><strong>{{ $endDate }}</strong></p>
+                        <input type="text" class="orm-control-static lead" onfocus="this.blur()" value="{{ $endDate }}" name="endDate" style="display: none;border: none;"><p class="form-control-static lead"><strong>{{ $endDate }}</strong></p>
                     </div>
                     <div class="mb-3">
                         <label for="movies" class="form-label">Filmy:</label>

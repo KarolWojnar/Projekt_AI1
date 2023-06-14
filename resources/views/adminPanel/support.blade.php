@@ -51,6 +51,9 @@
         @endforeach
     </ul>
 </div>
+<div id="support-container">
+    @include('layouts.support')
+</div>
 <script>
     function toggleEditPanel(event, problemId) {
         event.preventDefault();

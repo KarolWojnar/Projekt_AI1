@@ -115,3 +115,6 @@
     </div>
 </div>
 @endsection
+<div id="support-container">
+    @include('layouts.support')
+</div>

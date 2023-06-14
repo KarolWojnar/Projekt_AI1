@@ -129,6 +129,9 @@
         @endforeach
     </ul>
 </div>
+<div id="support-container">
+    @include('layouts.support')
+</div>
 <script>
     function toggleEditPanel(event, movieId) {
         event.preventDefault();

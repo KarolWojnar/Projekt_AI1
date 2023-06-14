@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Loan;
 use Illuminate\Http\Request;
 use App\Models\Movie;
 use App\Models\User;
@@ -60,6 +61,11 @@ class LoansController extends Controller
                 'sum' => $sum,
                 'prom' => $prom
             ]);
+        }
+        public function loansShowAll()
+        {
+            $loans = Loan::all();
+            return view('loans.all', ['loans' => $loans]);
         }
 
 }

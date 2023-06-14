@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class ProblemsController extends Controller
 {
     public function show() {
-        $problems = Support::all();
+        $problems = Support::where('status', '!=', 'zamknięty')->get();
         return view('adminPanel.support', compact('problems'));
     }
 

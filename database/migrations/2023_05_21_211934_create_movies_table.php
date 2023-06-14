@@ -24,9 +24,6 @@ return new class extends Migration
             $table->integer('pricePerDay');
             $table->string('available')->default('dostępny');
         });
-        Schema::table('loans', function (Blueprint $table) {
-            $table->foreignId('movie_id')->nullable()->constrained();
-        });
 
     }
 

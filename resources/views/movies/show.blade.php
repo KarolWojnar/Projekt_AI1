@@ -22,6 +22,7 @@
                             @csrf
                             @guest
                                 <a href="{{ route('login') }}" class="btn btn-block custom-btn"><b>Zaloguj się by wypożyczyć "{{ $movie->title }}"</b></a>
+                            </form>
                             @else
                                 @if ($user->late_fee == 0)
                                     @php
@@ -35,14 +36,20 @@
                                     @endphp
                                     @if ($isInCart)
                                     <p>Film "{{ $movie->title }}" znajduje się już w koszyku.</p>
+                                </form>
                                     @else
                                     <a href="{{ route('addToCart', ['id' => $movie->id]) }}" class="btn btn-block custom-btn"><b>Dodaj do koszyka film "{{ $movie->title }}"</b></a>
+                                </form>
                                     @endif
                                 @else
-                                    <a href="" class="text-danger2">Aby dodać do koszyka film najpierw opłać karę.</h5>
+                            </form>
+                            <form method="post" action="{{ route('late_fee') }}">
+                                @csrf
+                                <input type="hidden" name="late_fee" value="{{ $user->late_fee }}">
+                                <button type="submit" class="btn btn-danger mt-3">Opłać karę</button>
+                            </form>
                                 @endif
                             @endguest
-                        </form>
                     @else
                         <p class="card-text"><strong>Przepraszamy, film jest aktualnie niedostępny</strong></p>
                     @endif

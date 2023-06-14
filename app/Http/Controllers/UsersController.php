@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Loan;
+use App\Models\Movie;
 use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
@@ -11,17 +13,16 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        $loans = Loan::where('user_id', $id)->get();
 
         if (Gate::denies('view-user', $user)) {
             abort(403, 'Nie masz dostępu do tej strony.');
         }
-        return view('users.show', compact('user'));
+        return view('users.show', compact('user', 'loans'));
     }
 
     public function edit($id)
     {
-        $user = User::find($id);
-
         $user = User::find($id);
 
         if (Gate::denies('view-user', $user)) {

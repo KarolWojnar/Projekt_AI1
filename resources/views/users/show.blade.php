@@ -20,21 +20,25 @@
                 <a class="btn custom-btn" href="{{ route('users.edit', ['id' => $user->id]) }}"><b>Edytuj dane</b></a>
 
                 <div class="mt-5">
-                    <h3>Wypożyczone filmy:</h3>
+                    <h3>Twoje wypożyczenia:</h3>
                     <ul class="list-group">
-                        {{-- @foreach($user->rentals as $rental)
+                        @foreach($loans as $loan)
                             <li class="list-group-item rental-item">
-                                <div class="movie-title">{{ $rental->movie->title }}</div>
+                                <div class="movie-title">{{ $loan->movie }}</div>
                                 <div class="rental-info">
-                                    <span class="info-label">Wypożyczono:</span>
-                                    <span class="info-value">{{ $rental->rented_at }}</span>
+                                    <span class="info-label">Wypożyczono: </span>
+                                    <span class="info-value">{{ $loan->start_loan }}</span>
                                 </div>
                                 <div class="rental-info">
                                     <span class="info-label">Zwrócono:</span>
-                                    <span class="info-value">{{ $rental->returned_at ?? 'Nie zwrócono jeszcze' }}</span>
+                                    <span class="info-value">{{ $loan->returned_at ?? 'Nie zwrócono jeszcze' }}</span>
+                                </div>
+                                <div class="status-info">
+                                    <span class="info-label">Status zamówienia:</span>
+                                    <span class="info-value">{{ $loan->status}}</span>
                                 </div>
                             </li>
-                        @endforeach --}}
+                        @endforeach
                     </ul>
                 </div>
             </div>

@@ -36,7 +36,7 @@
                         <a class="nav-link red-after" href="{{ route('editUsers') }}">Edycja użytkowników</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link red-after" href="{{ route('editUsers') }}"><strong>ZAMÓWIENIA</strong></a>
+                        <a class="nav-link red-after" href="{{ route('loans') }}"><strong>ZAMÓWIENIA</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link red-after" href="{{ route('support') }}">Zgłoszenia problemów</a>

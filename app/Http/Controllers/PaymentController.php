@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Movie;
+use App\Models\Loan;
 
 class PaymentController extends Controller
 {
@@ -32,7 +34,6 @@ class PaymentController extends Controller
     {
         // Ustawienie klucza tajnego Stripe
         $stripe = new \Stripe\StripeClient('sk_test_51NI4MxBaqWYTYCZyzt2YuKVk3MOqAbdZDDQNrqhLJLVnAvviWKzSfn7vujXRnpGPQTF0l2JOx2peihenc4YCdJGN00TDyQ12BC');
-        dd($request);
         // Utworzenie płatności na podstawie tokenu płatności
         $token = $request->input('stripeToken');
         $source = $stripe->sources->create([
@@ -40,26 +41,50 @@ class PaymentController extends Controller
             'token' => $token,
         ]);
         $totalPrice = $request->input('totalPrice');
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+        $user = Auth::user();
 
         try {
             $paymentIntent = $stripe->paymentIntents->create([
-                'amount' => $totalPrice*100,
+                'amount' => $totalPrice * 100,
                 'currency' => 'pln',
                 'description' => 'Opłata za wypożyczenie filmu',
                 'source' => $source->id,
-              ]);
-              $paymentIntentId = $paymentIntent->id;
-              $confirmedPaymentIntent = $stripe->paymentIntents->confirm($paymentIntentId);
-              $paymentStatus = $confirmedPaymentIntent->status;
-              if($paymentStatus === 'succeeded') {return redirect()->route('payment_success');}
-              else {return redirect()->route('payment_error')->with('error', 'Nieudana płatność.');}
+            ]);
 
-            // Płatność zakończona sukcesem
+            $paymentIntentId = $paymentIntent->id;
+            $confirmedPaymentIntent = $stripe->paymentIntents->confirm($paymentIntentId);
+            $paymentStatus = $confirmedPaymentIntent->status;
+
+            if ($paymentStatus === 'succeeded') {
+                $cart = session()->get('cart',  collect());
+                    $loan = new Loan();
+                    $loan->start_loan = $startDate;
+                    $loan->end_loan = $endDate;
+                    $loan->price = $totalPrice;
+                    $loan->status = 'opłacony';
+                    $loan->user_id = $user->id;
+                    $loan->save();
+                foreach ($cart as $movieId) {
+                    $loan->movies()->attach($movieId->id);
+
+                    // Aktualizacja kolumny 'available' dla filmu
+                    $movieId->available = 'niedostępny';
+                    $movieId->save();
+                }
+
+                return redirect()->route('payment_success');
+            } else {
+                return redirect()->route('payment_error')->with('error', 'Nieudana płatność.');
+            }
         } catch (\Exception $e) {
             // Obsługa błędu płatności
             return redirect()->route('payment_error')->with('error', $e->getMessage());
         }
     }
+
+
 
 
     public function paymentSuccess()

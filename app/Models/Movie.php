@@ -18,5 +18,4 @@ class Movie extends Model
     {
         return $this->belongsToMany(Loan::class, 'loan_movie', 'movie_id', 'loan_id');
     }
-
 }

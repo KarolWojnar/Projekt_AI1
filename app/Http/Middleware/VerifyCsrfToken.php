@@ -13,5 +13,8 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/process_payment',
+        '/late_fee',
+        '/late_fee*',
     ];
+
 }
