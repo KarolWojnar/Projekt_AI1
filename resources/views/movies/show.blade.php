@@ -23,7 +23,7 @@
                         @else
                         @if ($user->late_fee > 0)
                         <div class="alert alert-info">
-                            <h3 class="text-danger">Masz {{ $user->late_fee }} zł długu</h3>
+                            <h3 class="text-danger">Masz {{ $user->late_fee }} zł kary. Zanim coś wypożyczysz najpierw zapłać karę</h3>
                             <div class="row justify-content-center">
                                 <div class="col-md-8">
                                     <form action="{{route('processPayment_lateFee')}}" method="POST" id="processPayment_lateFee">
@@ -32,7 +32,7 @@
                                             <label for="price" class="form-label">Opłata:</label>
                                             <input type="text" class="form-control-static lead" onfocus="this.blur()" value="{{ $user->late_fee }}" name="totalPrice" style="display: none;border: none;">
                                         </div>
-                                        <div id="card-element" class="form-control"></div>
+                                        <div id="card-element" class="form-control" data-stripe-key="{{ env('STRIPE_KEY') }}"></div>
                                         <div id="card-errors" class="invalid-feedback"></div>
                                         <button type="submit" class="btn btn-danger w-50 m-2"><strong>Zapłać</strong></button>
                                     </form>
@@ -97,7 +97,8 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    var stripe = Stripe('pk_test_51NI4MxBaqWYTYCZyr9BClR3bjt79mH6OD8RKCwYP8aKyhjgW5UfK1rlSQlDq3juSw98hB2Cn24XMI2TOrQWqfBkK00nseW95bf');
+    var stripeKey = document.getElementById('card-element').getAttribute('data-stripe-key');
+    var stripe = Stripe(stripeKey);
     var elements = stripe.elements();
     var cardElement = elements.create('card');
     cardElement.mount('#card-element');
