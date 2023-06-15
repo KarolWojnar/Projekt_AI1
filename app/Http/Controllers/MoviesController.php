@@ -52,6 +52,7 @@ class MoviesController extends Controller
         $movie->title = $request->input('title');
         $movie->genre = $request->input('genre');
         $movie->director = $request->input('director');
+        $movie->description = $request->input('description');
         $movie->release = $request->input('release');
         $movie->longTime = $request->input('longTime');
         $movie->rate = $request->input('rate');

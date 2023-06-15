@@ -51,7 +51,7 @@ class LoansController extends Controller
                 {
                     $diff = $expectDate->diffInDays($today);
                 }
-                else $diff = 2;
+                else $diff = 0;
                 $lateFee *= $diff;
                 $user = User::find($loan->user_id);
                 $user->late_fee = $user->late_fee + $lateFee;
