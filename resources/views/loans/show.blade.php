@@ -19,11 +19,11 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="address">Adres</label>
+                            <label for="address">Adres, numer bloku i numer mieszkania</label>
                             <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
                         </div>
                         <div class="form-group">
-                            <label for="city">Miasto</label>
+                            <label for="city">Miasto i kod pocztowy</label>
                             <input type="text" class="form-control" id="city" name="city" value="{{ $user->city }}">
                         </div>
                         <button type="submit" class="btn btn-secondary custom-btn m-2 w-30" id="showLoanOption">Zmień</button>

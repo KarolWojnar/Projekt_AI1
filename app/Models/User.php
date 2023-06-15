@@ -24,6 +24,7 @@ class User extends Authenticatable
         'address',
         'city',
         'password',
+        'isAdmin',
     ];
 
     /**
@@ -44,5 +45,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function opinions()
+    {
+        return $this->hasMany(Opinion::class);
+    }
 
 }

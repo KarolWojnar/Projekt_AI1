@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -53,8 +53,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Adres') }}</label>
-
+                            <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Ulica, numer bloku i mieszkania') }}</label>
                             <div class="col-md-6">
                                 <input id="address" type="address" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
 
@@ -67,7 +66,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="city" class="col-md-4 col-form-label text-md-end">{{ __('Miasto') }}</label>
+                            <label for="city" class="col-md-4 col-form-label text-md-end">{{ __('Miasto i kod pocztowy') }}</label>
 
                             <div class="col-md-6">
                                 <input id="city" type="city" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" required autocomplete="city">

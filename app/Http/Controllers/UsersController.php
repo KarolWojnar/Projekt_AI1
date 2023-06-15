@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Loan;
 use App\Models\Movie;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
@@ -13,6 +14,20 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        $loansAll = Loan::all();
+        $today = Carbon::today()->startOfDay();
+        foreach ($loansAll as $loan)
+        {
+            $expectDate = Carbon::parse($loan->start_loan);
+            if ($today->greaterThan($expectDate) && $loan->status == 'Nieopłacone') {
+                foreach ($loan->movies as $movie) {
+                    $movie->available = 'dostępny';
+                    $movie->save();
+                }
+                $loan->movies()->detach();
+                $loan->delete();
+            }
+        }
         $loans = Loan::where('user_id', $id)->get();
 
         if (Gate::denies('view-user', $user)) {

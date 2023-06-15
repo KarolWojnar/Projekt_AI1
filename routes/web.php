@@ -11,6 +11,7 @@ use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\RegulaminController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProblemsController;
+use App\Http\Controllers\OpinionController;
 
 Auth::routes();
 Route::group(['middleware' => ['web']], function () {
@@ -28,6 +29,8 @@ Route::group(['middleware' => ['web']], function () {
     //edycja danych
     Route::get('users/{id}/edit', [UsersController::class, 'edit'])->name('users.edit');
     Route::put('users/{id}', [UsersController::class, 'update'])->name('users.update');
+    Route::post('/opinions', [OpinionController::class, 'store'])->name('opinions.store');
+
     //filmy i wypożyczenia, płatność
     Route::put('users/{id}/loan', [UsersController::class, 'update2'])->name('users.update2');
     Route::get('/users/{id}', [UsersController::class, 'show'])->name('users.show');
@@ -39,10 +42,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/cart', [LoansController::class, 'cartShow'])->name('loans.show')->middleware('auth');
     Route::get('/cart/delete/{id}', [LoansController::class, 'deleteFromCart'])->name('deleteFromCart')->middleware('auth');
     Route::post('/process_payment', [PaymentController::class, 'processPayment'])->name('process_payment');
+    Route::post('/process_payment_lateFee', [PaymentController::class, 'processPayment_lateFee'])->name('processPayment_lateFee');
+    Route::post('/processPayment_late', [PaymentController::class, 'processPayment_late'])->name('processPayment_late');
     Route::post('/payment', [PaymentController::class, 'show'])->name('toPayment');
-    Route::post('/late_fee', [PaymentController::class, 'late_fee'])->name('late_fee');
     Route::get('/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment_success');
     Route::get('/payment/error', [PaymentController::class, 'paymentError'])->name('payment_error');
+    Route::put('/loans/{id}', [LoansController::class, 'update'])->name('loans.update')->middleware('\App\Http\Middleware\AdminMiddleware::class');
 
     // ADMIN
     Route::get('/editUsersAdmin',  'App\Http\Controllers\AdminPanel\EditUsersController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editUsers');

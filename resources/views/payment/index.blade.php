@@ -29,7 +29,7 @@
                     </div>
                     <div id="card-element" class="form-control"></div>
                     <div id="card-errors" class="invalid-feedback"></div>
-                    <button type="submit" class="btn custom-btn w-50"><strong>Zapłać</strong></button>
+                    <button type="submit" class="btn custom-btn w-50 m2"><strong>Zapłać</strong></button>
                 </form>
             </div>
         </div>

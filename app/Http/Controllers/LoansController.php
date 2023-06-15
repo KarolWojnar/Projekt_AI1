@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\JsonResponse;
+use Carbon\Carbon;
 
 class LoansController extends Controller
 {
@@ -27,6 +28,39 @@ class LoansController extends Controller
 
             return redirect()->back()->with('success', 'Film został dodany do koszyka.');
         }
+
+
+        public function update(Request $request, $id)
+        {
+            $loan = Loan::findOrFail($id);
+            $loan->status = $request->input('status');
+            $loan->save();
+            $lateFee = 0;
+
+            if ($loan->status == 'Zwrócone') {
+                foreach ($loan->movies as $movie) {
+                    $lateFee += $movie->pricePerDay;
+                    $movie->available = 'dostępny';
+                    $movie->save();
+                }
+                $lateFee *= 6;
+                $today = Carbon::today()->startOfDay();
+                $expectDate = Carbon::parse($loan->end_loan);
+
+                if($today->greaterThan($expectDate))
+                {
+                    $diff = $expectDate->diffInDays($today);
+                }
+                else $diff = 2;
+                $lateFee *= $diff;
+                $user = User::find($loan->user_id);
+                $user->late_fee = $user->late_fee + $lateFee;
+                $user->save();
+            }
+
+            return redirect()->back()->with('success', 'Status zamówienia został zaktualizowany.');
+        }
+
 
         public function deleteFromCart($id)
         {
@@ -64,7 +98,7 @@ class LoansController extends Controller
         }
         public function loansShowAll()
         {
-            $loans = Loan::all();
+            $loans = Loan::whereNotIn('status', ['Zwrócone'])->get();
             return view('loans.all', ['loans' => $loans]);
         }
 

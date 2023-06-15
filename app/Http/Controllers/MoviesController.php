@@ -2,16 +2,31 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Loan;
 use Illuminate\Http\Request;
 use App\Models\Movie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class MoviesController extends Controller
 {
     public function index()
     {
+        $loansAll = Loan::all();
+        $today = Carbon::today()->startOfDay();
+        foreach ($loansAll as $loan)
+        {
+            $expectDate = Carbon::parse($loan->start_loan);
+            if ($today->greaterThan($expectDate) && $loan->status == 'Nieopłacone') {
+                foreach ($loan->movies as $movie) {
+                    $movie->available = 'dostępny';
+                    $movie->save();
+                }
+                $loan->movies()->detach();
+                $loan->delete();
+            }
+        }
         $movies = Movie::all();
 
         return view('movies.filter', ['movies' => $movies]);
@@ -82,13 +97,22 @@ class MoviesController extends Controller
         }
 
     public function show($id)
-        {
-            $movie = Movie::find($id);
-            $user = Auth::user();
-            $cart = session()->get('cart', []);
+    {
+        $movie = Movie::find($id);
+        $user = Auth::user();
+        $currentDate = Carbon::now()->toDateString();
 
-            return view('movies.show', ['movie' => $movie, 'cart' => $cart, 'user' => $user]);
-        }
+        $loans = Loan::where('user_id', $user->id)
+            ->where(function ($query) use ($currentDate) {
+                $query->where('status', 'Nieopłacone')
+                    ->orWhere('end_loan', '<', $currentDate);
+            })
+            ->get();
+        $cart = session()->get('cart', []);
+
+
+        return view('movies.show', compact('movie', 'cart', 'user', 'loans'));
+    }
         public function searchMovies(Request $request)
     {
         $search = $request->get('search');
