@@ -21,24 +21,24 @@
                         @if ($loans->count() > 0)
                             <p class="text-danger text-center"><strong>Nie możesz wypożyczyć filmu ponieważ masz nieopłacone lub niezwrócone na czas wypożycznie. <br> Rozwiąż te problemy a możliwość wypożyczenia wróci.</strong></p>
                         @else
-                        @if ($user->late_fee > 0)
-                        <div class="alert alert-info">
-                            <h3 class="text-danger">Masz {{ $user->late_fee }} zł kary. Zanim coś wypożyczysz najpierw zapłać karę</h3>
-                            <div class="row justify-content-center">
-                                <div class="col-md-8">
-                                    <form action="{{route('processPayment_lateFee')}}" method="POST" id="processPayment_lateFee">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label for="price" class="form-label">Opłata:</label>
-                                            <input type="text" class="form-control-static lead" onfocus="this.blur()" value="{{ $user->late_fee }}" name="totalPrice" style="display: none;border: none;">
-                                        </div>
-                                        <div id="card-element" class="form-control" data-stripe-key="{{ env('STRIPE_KEY') }}"></div>
-                                        <div id="card-errors" class="invalid-feedback"></div>
-                                        <button type="submit" class="btn btn-danger w-50 m-2"><strong>Zapłać</strong></button>
-                                    </form>
+                        @if ($user && $user->late_fee > 0)
+                            <div class="alert alert-info">
+                                <h3 class="text-danger">Masz {{ $user->late_fee }} zł kary. Zanim coś wypożyczysz, najpierw zapłać karę.</h3>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-8">
+                                        <form action="{{ route('processPayment_lateFee') }}" method="POST" id="processPayment_lateFee">
+                                            @csrf
+                                            <div class="mb-3">
+                                                <label for="price" class="form-label">Opłata:</label>
+                                                <input type="text" class="form-control-static lead" onfocus="this.blur()" value="{{ $user->late_fee }}" name="totalPrice" style="display: none;border: none;">
+                                            </div>
+                                            <div id="card-element" class="form-control" data-stripe-key="{{ env('STRIPE_KEY') }}"></div>
+                                            <div id="card-errors" class="invalid-feedback"></div>
+                                            <button type="submit" class="btn btn-danger w-50 m-2"><strong>Zapłać</strong></button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @else
                             <form action="{{ route('movies.show', ['id' => $movie->id]) }}" method="POST">
                                 @csrf
@@ -57,7 +57,7 @@
                                     @if ($isInCart)
                                         <p>Film "{{ $movie->title }}" znajduje się już w koszyku.</p>
                                     @else
-                                    <a href="{{ route('addToCart', ['id' => $movie->id]) }}" class="btn btn-block custom-btn"><b>Dodaj do koszyka film "{{ $movie->title }}"</b></a>
+                                        <a href="{{ route('addToCart', ['id' => $movie->id]) }}" class="btn btn-block custom-btn"><b>Dodaj do koszyka film "{{ $movie->title }}"</b></a>
                                     @endif
                                 @endguest
                             </form>

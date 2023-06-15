@@ -96,23 +96,29 @@ class MoviesController extends Controller
             return redirect()->back()->with('success', 'Film został dodany pomyślnie.');
         }
 
-    public function show($id)
-    {
-        $movie = Movie::find($id);
-        $user = Auth::user();
-        $currentDate = Carbon::now()->toDateString();
+        public function show($id)
+        {
+            $movie = Movie::find($id);
+            $user = Auth::user();
+            $currentDate = Carbon::now()->toDateString();
 
-        $loans = Loan::where('user_id', $user->id)
-            ->where(function ($query) use ($currentDate) {
-                $query->where('status', 'Nieopłacone')
-                    ->orWhere('end_loan', '<', $currentDate);
-            })
-            ->get();
-        $cart = session()->get('cart', []);
+            $loans = collect();
+            $cart = session()->get('cart', []);
+
+            // Sprawdź, czy użytkownik jest zalogowany
+            if ($user) {
+                $loans = Loan::where('user_id', $user->id)
+                    ->where(function ($query) use ($currentDate) {
+                        $query->where('status', 'Nieopłacone')
+                            ->orWhere('end_loan', '<', $currentDate);
+                    })
+                    ->get();
+            }
+
+            return view('movies.show', compact('movie', 'cart', 'user', 'loans'));
+        }
 
 
-        return view('movies.show', compact('movie', 'cart', 'user', 'loans'));
-    }
         public function searchMovies(Request $request)
     {
         $search = $request->get('search');

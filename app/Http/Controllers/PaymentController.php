@@ -78,11 +78,34 @@ class PaymentController extends Controller
                     return redirect()->route('payment_error')->with('error', 'Nieudana płatność.');
             }
         } catch (\Exception $e) {
-            // Obsługa błędu płatności
+            $errorMessage = '';
+
+            switch ($e->getMessage()) {
+                case 'Your card was declined.':
+                    $errorMessage = __('Karta została odrzucona. Prosimy spróbować inną kartę płatniczą.');
+                    break;
+                case 'Your card has expired.':
+                    $errorMessage = __('Karta płatnicza wygasła. Prosimy podać ważną kartę płatniczą.');
+                    break;
+                case 'Your card\'s security code is incorrect.':
+                    $errorMessage = __('Nieprawidłowy kod CVC. Prosimy sprawdzić poprawność wprowadzonego kodu.');
+                    break;
+                case 'An error occurred while processing your payment.':
+                    $errorMessage = __('Wystąpił błąd podczas przetwarzania płatności. Prosimy spróbować ponownie.');
+                    break;
+                case 'Your card number is incorrect.':
+                    $errorMessage = __('Nieprawidłowy numer karty. Prosimy sprawdzić poprawność wprowadzonego numeru.');
+                    break;
+                default:
+                    $errorMessage = __('Wystąpił błąd podczas przetwarzania płatności. Spróbuj ponownie później.');
+                    break;
+            }
+
             $loan->status = 'Nieopłacone';
             $loan->user_id = $user->id;
             $loan->save();
-            return redirect()->route('payment_error')->with('error', $e->getMessage());
+
+            return redirect()->route('payment_error')->with('error', $errorMessage);
         }
     }
 
@@ -122,8 +145,29 @@ class PaymentController extends Controller
                 return redirect()->route('payment_error')->with('error', 'Nieudana płatność.');
             }
         } catch (\Exception $e) {
-            // Obsługa błędu płatności
-            return redirect()->route('payment_error')->with('error', $e->getMessage());
+            $errorMessage = '';
+
+            switch ($e->getMessage()) {
+                case 'Your card was declined.':
+                    $errorMessage = __('Karta została odrzucona. Prosimy spróbować inną kartę płatniczą.');
+                    break;
+                case 'Your card has expired.':
+                    $errorMessage = __('Karta płatnicza wygasła. Prosimy podać ważną kartę płatniczą.');
+                    break;
+                case 'Your card\'s security code is incorrect.':
+                    $errorMessage = __('Nieprawidłowy kod CVC. Prosimy sprawdzić poprawność wprowadzonego kodu.');
+                    break;
+                case 'An error occurred while processing your payment.':
+                    $errorMessage = __('Wystąpił błąd podczas przetwarzania płatności. Prosimy spróbować ponownie.');
+                    break;
+                case 'Your card number is incorrect.':
+                    $errorMessage = __('Nieprawidłowy numer karty. Prosimy sprawdzić poprawność wprowadzonego numeru.');
+                    break;
+                default:
+                    $errorMessage = __('Wystąpił błąd podczas przetwarzania płatności. Spróbuj ponownie później.');
+                    break;
+            }
+            return redirect()->route('payment_error')->with('error', $errorMessage);
         }
     }
 
@@ -162,8 +206,29 @@ class PaymentController extends Controller
                 return redirect()->route('payment_error')->with('error', 'Nieudana płatność.');
             }
         } catch (\Exception $e) {
-            // Obsługa błędu płatności
-            return redirect()->route('payment_error')->with('error', $e->getMessage());
+            $errorMessage = '';
+
+            switch ($e->getMessage()) {
+                case 'Your card was declined.':
+                    $errorMessage = __('Karta została odrzucona. Prosimy spróbować inną kartę płatniczą.');
+                    break;
+                case 'Your card has expired.':
+                    $errorMessage = __('Karta płatnicza wygasła. Prosimy podać ważną kartę płatniczą.');
+                    break;
+                case 'Your card\'s security code is incorrect.':
+                    $errorMessage = __('Nieprawidłowy kod CVC. Prosimy sprawdzić poprawność wprowadzonego kodu.');
+                    break;
+                case 'An error occurred while processing your payment.':
+                    $errorMessage = __('Wystąpił błąd podczas przetwarzania płatności. Prosimy spróbować ponownie.');
+                    break;
+                case 'Your card number is incorrect.':
+                    $errorMessage = __('Nieprawidłowy numer karty. Prosimy sprawdzić poprawność wprowadzonego numeru.');
+                    break;
+                default:
+                    $errorMessage = __('Wystąpił błąd podczas przetwarzania płatności. Spróbuj ponownie później.');
+                    break;
+            }
+            return redirect()->route('payment_error')->with('error', $errorMessage);
         }
     }
 
