@@ -24,7 +24,7 @@ class PaymentController extends Controller
     public function processPayment(Request $request)
     {
         // Ustawienie klucza tajnego Stripe
-        $stripe = new \Stripe\StripeClient('sk_test_51NI4MxBaqWYTYCZyzt2YuKVk3MOqAbdZDDQNrqhLJLVnAvviWKzSfn7vujXRnpGPQTF0l2JOx2peihenc4YCdJGN00TDyQ12BC');
+        $stripe = new \Stripe\StripeClient('SECRET KEY');
         // Utworzenie płatności na podstawie tokenu płatności
         $token = $request->input('stripeToken');
         $source = $stripe->sources->create([
@@ -90,7 +90,7 @@ class PaymentController extends Controller
     public function processPayment_lateFee(Request $request)
     {
         // Ustawienie klucza tajnego Stripe
-        $stripe = new \Stripe\StripeClient('sk_test_51NI4MxBaqWYTYCZyzt2YuKVk3MOqAbdZDDQNrqhLJLVnAvviWKzSfn7vujXRnpGPQTF0l2JOx2peihenc4YCdJGN00TDyQ12BC');
+        $stripe = new \Stripe\StripeClient('SECRET KEY');
         // Utworzenie płatności na podstawie tokenu płatności
         $token = $request->input('stripeToken');
         $source = $stripe->sources->create([
@@ -130,7 +130,7 @@ class PaymentController extends Controller
     public function processPayment_late(Request $request)
     {
         // Ustawienie klucza tajnego Stripe
-        $stripe = new \Stripe\StripeClient('sk_test_51NI4MxBaqWYTYCZyzt2YuKVk3MOqAbdZDDQNrqhLJLVnAvviWKzSfn7vujXRnpGPQTF0l2JOx2peihenc4YCdJGN00TDyQ12BC');
+        $stripe = new \Stripe\StripeClient('SECRET KEY');
         // Utworzenie płatności na podstawie tokenu płatności
         $token = $request->input('stripeToken');
         $source = $stripe->sources->create([
