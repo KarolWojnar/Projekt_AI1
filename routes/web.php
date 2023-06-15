@@ -30,6 +30,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('users/{id}/edit', [UsersController::class, 'edit'])->name('users.edit');
     Route::put('users/{id}', [UsersController::class, 'update'])->name('users.update');
     Route::post('/opinions', [OpinionController::class, 'store'])->name('opinions.store');
+    Route::post('/cancel-loan/{id}', [LoansController::class, 'cancelLoan'])->name('cancelLoan');
 
     //filmy i wypożyczenia, płatność
     Route::put('users/{id}/loan', [UsersController::class, 'update2'])->name('users.update2');

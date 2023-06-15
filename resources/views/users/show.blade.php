@@ -74,10 +74,17 @@
                                             <div id="card-errors" class="invalid-feedback"></div>
                                             <div class="d-flex justify-content-between">
                                                 <button type="submit" class="btn custom-btn w-45 m-2"><strong>Zapłać</strong></button>
-                                                <a href="" class="btn btn-danger w-45 m-2"><strong>Anuluj wypożyczenie</strong></a>
+                                            </form>
+                                            <form action="{{ route('cancelLoan', ['id' => $loan->id]) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger w-45 m-2" onclick="return confirm('Czy na pewno chcesz anulować wypożyczenie?')">
+                                                    <strong>Anuluj wypożyczenie</strong>
+                                                </button>
+                                            </form>
+
                                             </div>
                                             <strong class="text-danger">Jeśli nie opłacisz zamówienia do daty startu wypożczenia filmy ponownie trafią do oferty sklepu</strong>
-                                        </form>
+
                                     </div>
                                 </div>
                                 @endif
@@ -100,7 +107,7 @@
                         <thead>
                             <tr>
                                 <th>Tytuł filmu</th>
-                                <th>Data wypożyczenia</th>
+                                <th>Data pierwszego wypożyczenia</th>
                                 <th>Akcje</th>
                             </tr>
                         </thead>

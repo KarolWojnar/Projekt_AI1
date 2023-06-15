@@ -102,4 +102,25 @@ class LoansController extends Controller
             return view('loans.all', ['loans' => $loans]);
         }
 
+
+        public function cancelLoan($id)
+        {
+            $loan = Loan::find($id);
+
+            if ($loan) {
+
+                $movies = $loan->movies;
+
+                foreach ($movies as $movie) {
+                    $movie->available = 'dostępny';
+                    $movie->save();
+                }
+
+                $loan->delete();
+
+                return redirect()->back()->with('success', 'Wypożyczenie zostało anulowane.');
+            }
+
+            return redirect()->back()->with('error', 'Nie znaleziono wypożyczenia.');
+        }
 }
