@@ -25,7 +25,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register']);
     //regulamin
-    Route::get('/regulamin', [RegulaminController::class, 'index'])->name('regulamin');
+    Route::get('/regulamin', function () {return view('regulamin');})->name('regulamin');
     //edycja danych
     Route::get('users/{id}/edit', [UsersController::class, 'edit'])->name('users.edit');
     Route::put('users/{id}', [UsersController::class, 'update'])->name('users.update');
@@ -46,8 +46,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/process_payment_lateFee', [PaymentController::class, 'processPayment_lateFee'])->name('processPayment_lateFee');
     Route::post('/processPayment_late', [PaymentController::class, 'processPayment_late'])->name('processPayment_late');
     Route::post('/payment', [PaymentController::class, 'show'])->name('toPayment');
-    Route::get('/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment_success');
-    Route::get('/payment/error', [PaymentController::class, 'paymentError'])->name('payment_error');
     Route::put('/loans/{id}', [LoansController::class, 'update'])->name('loans.update')->middleware('\App\Http\Middleware\AdminMiddleware::class');
 
     // ADMIN
@@ -56,11 +54,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/supportPanel',  [ProblemsController::class, 'show'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('support');
     Route::post('/supportPanel-send',  [ProblemsController::class, 'create'])->name('addProblem');
     Route::get('/loansAdmin',  [LoansController::class, 'loansShowAll'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('loans');
-    Route::get('/supportPanel/{id}', [ProblemsController::class, 'updateStatus'])->name('problem.update');
-    Route::get('/movies/delete/{id}', [MoviesController::class, 'delete'])->name('movies.delete');
-    Route::get('/problems/delete/{id}', [ProblemsController::class, 'delete'])->name('problem.delete');
-    Route::get('/users/delete/{id}', [UsersController::class, 'delete'])->name('users.delete');
-    Route::put('/movies/{id}', [MoviesController::class, 'update'])->name('movies.update');
+    Route::get('/supportPanel/{id}', [ProblemsController::class, 'updateStatus'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('problem.update');
+    Route::get('/movies/delete/{id}', [MoviesController::class, 'delete'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('movies.delete');
+    Route::get('/problems/delete/{id}', [ProblemsController::class, 'delete'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('problem.delete');
+    Route::get('/users/delete/{id}', [UsersController::class, 'delete'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('users.delete');
+    Route::put('/movies/{id}', [MoviesController::class, 'update'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('movies.update');
     Route::post('/movies', [MoviesController::class, 'store'])->name('movies.store');
 });
 
