@@ -34,5 +34,16 @@ class UsersSeeder extends Seeder
                 ]);
             }
         }
+        // Dodanie rekordu administratora
+        DB::table('users')->insert([
+            'id' => '0',
+            'first_name' => 'Admin',
+            'last_name' => 'Adminowski',
+            'email' => 'admin@example.com',
+            'address' => 'Admin Address',
+            'city' => 'Admin City',
+            'password' => Hash::make('Admin@12345'),
+            'isAdmin' => 1,
+        ]);
     }
 }

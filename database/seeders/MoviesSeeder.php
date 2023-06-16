@@ -24,7 +24,7 @@ class MoviesSeeder extends Seeder
                     'id' => $values[0],
                     'title' => $values[1],
                     'description' => $values[2],
-                    'genre' => $values[3],
+                    'category_id' => $values[3],
                     'director' => $values[4],
                     'release' => $values[5],
                     'longTime' => $values[6],
@@ -32,7 +32,6 @@ class MoviesSeeder extends Seeder
                     'img_path' => $values[8],
                     'pricePerDay' => $values[9],
                     'available' => $values[10],
-
                 ]);
             }
         }

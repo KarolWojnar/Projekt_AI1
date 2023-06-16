@@ -50,6 +50,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/process_payment_lateFee', [PaymentController::class, 'processPayment_lateFee'])->name('processPayment_lateFee');
     Route::post('/processPayment_late', [PaymentController::class, 'processPayment_late'])->name('processPayment_late');
     Route::post('/payment', [PaymentController::class, 'show'])->name('toPayment');
+    Route::get('/payment/succes', [PaymentController::class, 'paymentSuccess'])->name('payment_success');
+    Route::get('/payment/error', [PaymentController::class, 'paymentError'])->name('payment_error');
     Route::put('/loans/{id}', [LoansController::class, 'update'])->name('loans.update')->middleware('\App\Http\Middleware\AdminMiddleware::class');
 
     // ADMIN
