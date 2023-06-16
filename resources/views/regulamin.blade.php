@@ -4,7 +4,7 @@
     <title>Regulamin</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Prjekt_AI1</title>
+    <title>Cinema Blu-ray</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <style>
         ul>li {
@@ -30,7 +30,6 @@
                 <li>Użytkownik może wybierać filmy dostępne w ofercie wypożyczalni.</li>
                 <li>Każdy film jest oznaczony z góry ustaloną ceną wypożyczenia.</li>
                 <li>Użytkownik może dodać wybrane filmy do koszyka w celu złożenia zamówienia.</li>
-                <li>Użytkownik może wypożyczyć tylko jeden film na raz.</li>
             </ul>
         </li>
 
