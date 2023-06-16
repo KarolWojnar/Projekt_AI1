@@ -4,11 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AdminPanel\EditMoviesController;
 use App\Http\Controllers\LoansController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MoviesController;
-use App\Http\Controllers\RegulaminController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProblemsController;
 use App\Http\Controllers\OpinionController;
@@ -31,6 +31,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::put('users/{id}', [UsersController::class, 'update'])->name('users.update');
     Route::post('/opinions', [OpinionController::class, 'store'])->name('opinions.store');
     Route::post('/cancel-loan/{id}', [LoansController::class, 'cancelLoan'])->name('cancelLoan');
+    Route::post('/password/update', [ResetPasswordController::class, 'update'])->name('password.update');
+    Route::post('/password/update', [ResetPasswordController::class, 'update'])->name('password.update');
+    Route::get('/password/change', [ResetPasswordController::class, 'showChangeForm'])->name('password.change');
+    Route::post('/password/change', [ResetPasswordController::class, 'change'])->name('password.update');
 
     //filmy i wypożyczenia, płatność
     Route::put('users/{id}/loan', [UsersController::class, 'update2'])->name('users.update2');

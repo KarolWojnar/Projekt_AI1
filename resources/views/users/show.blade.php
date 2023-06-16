@@ -30,7 +30,12 @@
                             </div>
                         </div>
                     @endif
-                    <a class="btn custom-btn" href="{{ route('users.edit', ['id' => $user->id]) }}">Edytuj dane</a>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                            <a class="btn custom-btn" href="{{ route('users.edit', ['id' => $user->id]) }}">Edytuj dane</a>
+                            <a href="{{ route('password.change') }}" class="btn custom-btn">Zmień hasło</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="text-white">
