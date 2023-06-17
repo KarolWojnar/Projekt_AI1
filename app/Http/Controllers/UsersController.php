@@ -8,6 +8,7 @@ use App\Models\Loan;
 use App\Models\Movie;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
@@ -51,14 +52,23 @@ class UsersController extends Controller
     {
         $user = User::find($id);
 
-        // Walidacja danych z formularza
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($user->id),
+            ],
+            'address' => 'required',
+            'city' => 'required',
+        ]);
 
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
         $user->address = $request->input('address');
         $user->city = $request->input('city');
-        // Pozostałe pola do zaktualizowania
 
         $user->save();
 

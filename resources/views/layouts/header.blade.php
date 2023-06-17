@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('header.name', 'Laravel') }}</title>
+    <title>Cinema Blu-ray</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -28,7 +28,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
-                @if(Auth::check() && Auth::user()->isAdmin)
+                @if(Auth::check() && Auth::user()->isAdmin == 1)
                     <li class="nav-item">
                         <a class="nav-link red-after" href="{{ route('editMovies') }}">Edycja Filmów</a>
                     </li>
@@ -41,7 +41,6 @@
                     <li class="nav-item">
                         <a class="nav-link red-after" href="{{ route('support') }}">Zgłoszenia problemów</a>
                     </li>
-
                 @else
                     <li class="nav-item">
                         <a class="nav-link red-after" href="{{ route('movies.index') }}">Nasze Wszystkie filmy</a>

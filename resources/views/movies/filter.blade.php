@@ -7,30 +7,25 @@
             <label for="genre">Gatunek</label>
             <select name="genre" id="genre" class="form-control">
                 <option value="">Wszystkie</option>
-                <option value="Biograficzny">Biograficzny</option>
-                <option value="Dramat">Dramat</option>
-                <option value="Familijny">Familijny</option>
-                <option value="Fantasy">Fantasy</option>
-                <option value="Gangsterski">Gangsterski</option>
-                <option value="Kryminał">Kryminał</option>
-                <option value="Przygodowy">Przygodowy</option>
-                <option value="Psychologiczny">Psychologiczny</option>
-                <option value="Surrealistyczny">Surrealistyczny</option>
-                <option value="Thriller">Thriller</option>
-                <option value="Western">Western</option>
-                <option value="Wojenny">Wojenny</option>
+                @foreach ($categories as $category)
+                    @if ($category->id == $idSelected)
+                    <option selected value="{{$category->id}}">{{$category->genre}}</option>
+                    @else
+                    <option value="{{$category->id}}">{{$category->genre}}</option>
+                    @endif
+                @endforeach
             </select>
         </div>
         <div class="form-group col-md-6">
             <label for="sort_by">Sortuj według</label>
             <select name="sort_by" id="sort_by" class="form-control">
                 <option value="">Brak sortowania</option>
-                <option value="release1">Od najmłodszego</option>
-                <option value="release2">Od najstarszego</option>
-                <option value="rate1">Ocena rosnąco</option>
-                <option value="rate2">Ocena malejąco</option>
-                <option value="length1">Długość filmu malejąca</option>
-                <option value="length2">Długość filmu rosnąca</option>
+                <option @if ($idSorted === 'release1') selected @endif value="release1">Od najmłodszego</option>
+                <option @if ($idSorted === 'release2') selected @endif value="release2">Od najstarszego</option>
+                <option @if ($idSorted === 'rate1') selected @endif value="rate1">Ocena rosnąco</option>
+                <option @if ($idSorted === 'rate2') selected @endif value="rate2">Ocena malejąco</option>
+                <option @if ($idSorted === 'length1') selected @endif value="length1">Długość filmu malejąca</option>
+                <option @if ($idSorted === 'length2') selected @endif value="length2">Długość filmu rosnąca</option>
             </select>
         </div>
         <div class="form-group col-12 text-center">
@@ -40,7 +35,7 @@
     <div class="d-flex justify-content-center m-3">
         <form class="form-inline" role="search" action="{{ route('movies.search') }}" method="GET">
             <div class="input-group">
-                <input class="form-control" type="search" name="search" placeholder="Wpisz tytuł, aby wyszukać..." aria-label="Search">
+                <input class="form-control" type="search" name="search" placeholder="Wpisz tytuł, aby wyszukać..." required aria-label="Search" value="">
                 <div class="input-group-append">
                     <button class="btn custom-btn m-2" type="submit">Szukaj</button>
                 </div>
@@ -48,9 +43,11 @@
         </form>
     </div>
 </div>
-
 <div class="container">
     <div class="row d-flex flex-wrap justify-content-center">
+        @if ($movies->count() == 0)
+        <h1 class="text-white">Nie ma takich filmów</h1>
+        @endif
         @foreach($movies as $movie)
         <div class="card bg-dark2 text-white m-3" style="width: 18rem;">
             <img src="{{ asset($movie->img_path) }}" class="card-img-top" alt="">

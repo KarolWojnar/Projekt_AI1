@@ -1,12 +1,9 @@
-@extends('layouts.app')
-
-@section('content')
+@include('layouts.app')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header bg-dark3">{{ __('Rejestracja') }}</div>
-
                 <div class="card-body bg-dark text-white">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -43,7 +40,6 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -81,14 +77,10 @@
 
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Hasło') }}</label>
-
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>Hasło musi zawierać minimum 8 znaków</strong>
-                                    </span>
+                                <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" required minlength="8" name="password">
+                                @error('new_password')
+                                    <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -97,7 +89,11 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Potwierdź hasło') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="confirm_password" name="password_confirmation">
+                                @error('confirm_password')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                                <p class="text-danger" id="confirmed"></p>
                             </div>
                         </div>
                         <div class="row mb-0">
@@ -113,7 +109,30 @@
         </div>
     </div>
 </div>
-@endsection
+
 <div id="support-container">
     @include('layouts.support')
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Zatrzymaj domyślne działanie formularza
+
+            var newPassword = document.getElementById('new_password').value;
+            var confirmPassword = document.getElementById('confirm_password').value;
+
+            if (newPassword !== confirmPassword) {
+                document.getElementById('confirm_password').classList.add('is-invalid');
+                document.getElementById('confirmed').innerHTML = "Hasła się nie zgadzają";
+                return;
+            }
+
+            // Jeśli walidacja jest poprawna, wyślij żądanie do serwera
+            this.removeEventListener('submit', arguments.callee);
+            this.submit();
+            document.getElementById('confirmed').innerHTML = " ";
+        });
+    });
+</script>
+

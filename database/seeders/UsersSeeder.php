@@ -15,6 +15,20 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
+
+         // Dodanie rekordu administratora
+         DB::table('users')->insert([
+            'id' => '1',
+            'first_name' => 'Admin',
+            'last_name' => 'Adminowski',
+            'email' => 'admin@wp.pl',
+            'address' => 'Admin Address',
+            'city' => 'Admin City',
+            'password' => Hash::make('Admin@12345'),
+            'late_fee' => '0',
+            'isAdmin' => 1,
+        ]);
+
         $path = storage_path('csv/users.csv');
         $data = File::get($path);
         $rows = explode("\n", $data);
@@ -29,21 +43,9 @@ class UsersSeeder extends Seeder
                     'address' => $values[4],
                     'city' => $values[5],
                     'password' => Hash::make($values[6]),
-                    'isAdmin' => $values[7],
-
+                    'late_fee' => $values[7],
                 ]);
             }
         }
-        // Dodanie rekordu administratora
-        DB::table('users')->insert([
-            'id' => '0',
-            'first_name' => 'Admin',
-            'last_name' => 'Adminowski',
-            'email' => 'admin@example.com',
-            'address' => 'Admin Address',
-            'city' => 'Admin City',
-            'password' => Hash::make('Admin@12345'),
-            'isAdmin' => 1,
-        ]);
     }
 }

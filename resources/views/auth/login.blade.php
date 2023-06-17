@@ -18,7 +18,7 @@
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>Nieprawidłowe dane</strong>
+                                        <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -28,13 +28,13 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end text-white">{{ __('Hasło') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required minlength="8" autocomplete="current-password">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>Nieprawidłowe dane</strong>
+                                        <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                <p></p>
                             </div>
                         </div>
                         <div class="row mb-0">

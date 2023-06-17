@@ -1,19 +1,29 @@
 @include('layouts.header')
 @include('layouts.css')
-<div class="container w-100">
+<div class="container">
+    @if ($errors->any())
+        <div class="alert alert-danger mt-3">
+            @foreach ($errors->all() as $error)
+                <strong>{{ $error }}</strong>
+            @endforeach
+        </div>
+        @elseif (session('success'))
+        <div class="alert alert-success mt-3">
+            {{ session('success') }}
+        </div>
+        @endif
     <ul class="list-group">
         @foreach($problems as $problem)
             <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
                 <div class="text-white">
                     <span class="fw-bold">{{ $problem->id }}</span>
                     <span class="fw-bold">{{ $problem->email }}</span>
-                    <span class="">({{ $problem->typeOf }})</span>
-                    <span class="">Opis: {{ $problem->problem }}</span>
+                    <span class="">({{ $problem->typeOf }})</span><br>
+                    <span class="m-4" style="display: block;max-width: 40rem;word-wrap: break-word;"><strong>Opis:</strong>  {{ $problem->problem }}</span>
                 </div>
-                <div>
-                    <a href="#" class="btn btn-secondary custom-btn" onclick="toggleEditPanel(event, {{ $problem->id }})">Zmień status</a>
-
-                    <a href="{{ route('problem.delete', ['id' => $problem->id]) }}" class="btn btn-danger">Usuń problem</a>
+                <div class="d-flex">
+                    <a href="#" class="btn btn-secondary custom-btn m-2" onclick="toggleEditPanel(event, {{ $problem->id }})">Zmień status</a>
+                    <a href="{{ route('problem.delete', ['id' => $problem->id]) }}" class="btn btn-danger m-2">Usuń problem</a>
                 </div>
             </li>
             <li id="edit-panel-{{ $problem->id }}" class="list-group-item bg-dark text-white edit-panel" style="display: none;">
@@ -42,7 +52,6 @@
                                 <option value="Zamknięty">Zamknięty</option>
                             @endif
                         </select>
-
                     </div>
                     <button type="submit" class="btn btn-secondary custom-btn m-2 w-30">Zapisz</button>
                     <button type="button" class="btn btn-secondary custom-btn m-2 w-30" onclick="cancelEditPanel(event, {{ $problem->id }})">Anuluj</button>

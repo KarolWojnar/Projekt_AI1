@@ -20,11 +20,11 @@
                         @method('PUT')
                         <div class="form-group">
                             <label for="address">Adres, numer bloku i numer mieszkania</label>
-                            <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
+                            <input type="text" class="form-control" id="address" name="address" required value="{{ $user->address }}">
                         </div>
                         <div class="form-group">
                             <label for="city">Miasto i kod pocztowy</label>
-                            <input type="text" class="form-control" id="city" name="city" value="{{ $user->city }}">
+                            <input type="text" class="form-control" id="city" name="city" required value="{{ $user->city }}">
                         </div>
                         <button type="submit" class="btn btn-secondary custom-btn m-2 w-30" id="showLoanOption">Zmień</button>
                     </form>
@@ -54,8 +54,8 @@
                             </div>
                         </div>
                     </div>
-                    @if ($sum > 1)
-                    <h5 class="text-danger2">Za wypożyczenie {{$sum}} filmów dostajesz {{$prom*100}}% zniżki!</h5>
+                    @if ($sum >= 1)
+                    <h5 class="text-danger2">Za wypożyczenie {{$sum + 1}} filmów dostajesz {{$prom*100}}% zniżki!</h5>
                     @endif
                     <div class="row" id="rent" style="height: 15rem">
                         <div style="display: none;" id="showMe" class="col-lg-6">

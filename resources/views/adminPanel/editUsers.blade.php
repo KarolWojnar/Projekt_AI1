@@ -2,6 +2,17 @@
 @include('layouts.css')
 <div class="container w-100">
     <ul class="list-group">
+        @if ($errors->any())
+        <div class="alert alert-danger mt-3">
+            @foreach ($errors->all() as $error)
+                <strong>{{ $error }}</strong>
+            @endforeach
+        </div>
+        @elseif (session('success'))
+        <div class="alert alert-success mt-3">
+            {{ session('success') }}
+        </div>
+        @endif
         @foreach($users as $key => $user)
             <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
                 <div class="text-white">
@@ -22,26 +33,25 @@
                 <form action="{{ route('users.update', ['id' => $user->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
-
                     <div class="form-group">
                         <label for="first_name">Imie</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ $user->first_name }}">
+                        <input type="text" class="form-control" id="first_name" name="first_name" required value="{{ $user->first_name }}">
                     </div>
                     <div class="form-group">
                         <label for="last_name">Nazwisko</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ $user->last_name }}">
+                        <input type="text" class="form-control" id="last_name" name="last_name" required value="{{ $user->last_name }}">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                        <input type="email" class="form-control" id="email" name="email" required value="{{ $user->email }}">
                     </div>
                     <div class="form-group">
                         <label for="address">Adres</label>
-                        <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
+                        <input type="text" class="form-control" id="address" name="address" required value="{{ $user->address }}">
                     </div>
                     <div class="form-group">
                         <label for="city">Miasto</label>
-                        <input type="text" class="form-control" id="city" name="city" value="{{ $user->city }}">
+                        <input type="text" class="form-control" id="city" name="city" required value="{{ $user->city }}">
                     </div>
                     <button type="submit" class="btn btn-secondary m-2 w-30">Zapisz</button>
                 </form>

@@ -84,6 +84,7 @@ class LoansController extends Controller
                 $totalPrice += $movie->pricePerDay;
                 $sum += 1;
             }
+            $sum -= 1;
             $prom = 0.05 * $sum;
             if ($prom >= 0.3) $prom = 0.3;
             $totalPrice = $totalPrice * (1 - $prom);

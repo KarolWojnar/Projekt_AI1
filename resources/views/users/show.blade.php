@@ -39,21 +39,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="text-white">
-                        @php
-                        $i = 0;
-                        @endphp
-                        @foreach ($loans as $loan)
-                        @if ($loan->status != 'Zwrócone')
-                        @php
-                        $i++;
-                        @endphp
-                        @endif
-                        @endforeach
-                        @if ($i == 0)
-                        @else
                         <h3>Aktualne wypożyczenia:</h3>
                         <ul class="list-group">
-                            @foreach ($loans as $loan)
+                            @foreach ($loans->sortByDesc('start_loan') as $loan)
                             @if ($loan->user_id == $user->id && $loan->status != 'Zwrócone')
                             <li class="list-group-item rounded m-2" style="opacity: 0.6">
                                 <strong>Data wypożyczenia:</strong> {{ $loan->start_loan }} <br>
@@ -81,23 +69,19 @@
                                                 <button type="submit" class="btn custom-btn w-45 m-2"><strong>Zapłać</strong></button>
                                             </form>
                                             <form action="{{ route('cancelLoan', ['id' => $loan->id]) }}" method="POST">
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger w-45 m-2" onclick="return confirm('Czy na pewno chcesz anulować wypożyczenie?')">
-                                                    <strong>Anuluj wypożyczenie</strong>
-                                                </button>
-                                            </form>
-
-                                            </div>
-                                            <strong class="text-danger">Jeśli nie opłacisz zamówienia do daty startu wypożczenia filmy ponownie trafią do oferty sklepu</strong>
-
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger w-45 m-2" onclick="return confirm('Czy na pewno chcesz anulować wypożyczenie?')">
+                                                <strong>Anuluj wypożyczenie</strong>
+                                            </button>
+                                        </form>
                                     </div>
+                                    <strong class="text-danger">Jeśli nie opłacisz zamówienia do daty startu wypożczenia filmy ponownie trafią do oferty sklepu</strong>
                                 </div>
                                 @endif
                             </li>
                             @endif
                             @endforeach
                         </ul>
-                        @endif
                     </div>
                 </div>
             </div>

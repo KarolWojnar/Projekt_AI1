@@ -31,8 +31,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::put('users/{id}', [UsersController::class, 'update'])->name('users.update');
     Route::post('/opinions', [OpinionController::class, 'store'])->name('opinions.store');
     Route::post('/cancel-loan/{id}', [LoansController::class, 'cancelLoan'])->name('cancelLoan');
-    Route::post('/password/update', [ResetPasswordController::class, 'update'])->name('password.update');
-    Route::post('/password/update', [ResetPasswordController::class, 'update'])->name('password.update');
     Route::get('/password/change', [ResetPasswordController::class, 'showChangeForm'])->name('password.change');
     Route::post('/password/change', [ResetPasswordController::class, 'change'])->name('password.update');
 
@@ -65,6 +63,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/problems/delete/{id}', [ProblemsController::class, 'delete'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('problem.delete');
     Route::get('/users/delete/{id}', [UsersController::class, 'delete'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('users.delete');
     Route::put('/movies/{id}', [MoviesController::class, 'update'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('movies.update');
-    Route::post('/movies', [MoviesController::class, 'store'])->name('movies.store');
+    Route::post('/movies', [MoviesController::class, 'store'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('movies.store');
+    Route::post('/cat', [MoviesController::class, 'catStore'])->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('category.store');
 });
 

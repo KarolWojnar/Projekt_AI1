@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Loan;
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -28,8 +29,9 @@ class MoviesController extends Controller
             }
         }
         $movies = Movie::all();
+        $categories = Category::all();
 
-        return view('movies.filter', ['movies' => $movies]);
+        return view('movies.filter', ['movies' => $movies, 'categories' => $categories, 'idSelected' => 0, 'idSorted' => ' ']);
     }
 
     public function delete($id)
@@ -50,7 +52,7 @@ class MoviesController extends Controller
     {
         $movie = Movie::find($id);
         $movie->title = $request->input('title');
-        $movie->genre = $request->input('genre');
+        $movie->category_id = $request->input('genre');
         $movie->director = $request->input('director');
         $movie->description = $request->input('description');
         $movie->release = $request->input('release');
@@ -69,20 +71,20 @@ class MoviesController extends Controller
 
             $request->validate([
                 'title' => 'required',
-                'genre' => 'required',
+                'category_id' => 'required',
                 'description' => 'required',
                 'director' => 'required',
-                'release' => 'required',
-                'longTime' => 'required',
+                'release' => ['required', 'date_format:Y'],
+                'longTime' => ['required', 'numeric', 'between:1,1000'],
                 'img_path' => 'required',
-                'rate' => 'required',
-                'pricePerDay' => 'required',
+                'rate' => ['required', 'numeric', 'between:0,10'],
+                'pricePerDay' => ['required', 'numeric', 'between:0,100'],
                 'available' => 'required',
             ]);
 
             $movie = new Movie();
             $movie->title = $request->input('title');
-            $movie->genre = $request->input('genre');
+            $movie->category_id = $request->input('genre');
             $movie->description = $request->input('description');
             $movie->director = $request->input('director');
             $movie->release = $request->input('release');
@@ -95,6 +97,19 @@ class MoviesController extends Controller
             $movie->save();
 
             return redirect()->back()->with('success', 'Film został dodany pomyślnie.');
+        }
+        public function catStore(Request $request)
+        {
+
+            $request->validate([
+                'genre' => 'required|unique:categories',
+            ]);
+            $category = new Category();
+            $category->genre = $request->input('genre');
+
+            $category->save();
+
+            return redirect()->back()->with('success', 'Kategoria została dodana pomyślnie.');
         }
 
         public function show($id)
@@ -115,8 +130,10 @@ class MoviesController extends Controller
                     })
                     ->get();
             }
+            $idSelected = 0;
+            $idSorted = '';
 
-            return view('movies.show', compact('movie', 'cart', 'user', 'loans'));
+            return view('movies.show', compact('movie', 'cart', 'user', 'loans', 'idSelected', 'idSorted'));
         }
 
 
@@ -134,40 +151,51 @@ class MoviesController extends Controller
         }
 
         $movies = $movies->get();
+        $categories = Category::all();
+        $idSelected = 0;
+        $idSorted = '';
 
-        return view('movies.filter', compact('movies'));
+        return view('movies.filter', compact('movies', 'categories', 'idSelected', 'idSorted'));
     }
 
     public function filter(Request $request)
         {
             $genre = $request->genre;
             $sortBy = $request->sort_by;
+            $categories = Category::all();
 
             $query = Movie::query();
+            $idSelected = 0;
 
             if ($genre && $genre !== 'all') {
-                $query->where('genre', $genre);
+                $query->where('category_id', $genre);
+                $idSelected = $genre;
             }
-
+            $idSorted = '';
             if ($sortBy) {
                 if ($sortBy === 'release1') {
                     $query->orderBy('release', 'desc');
+                    $idSorted = 'release1';
                 } elseif ($sortBy === 'release2') {
                     $query->orderBy('release', 'asc');
+                    $idSorted = 'release2';
                 } elseif ($sortBy === 'rate1') {
                     $query->orderBy('rate', 'asc');
+                    $idSorted = 'rate1';
                 } elseif ($sortBy === 'rate2') {
                     $query->orderBy('rate', 'desc');
+                    $idSorted = 'rate2';
                 } elseif ($sortBy === 'length1') {
                     $query->orderBy('longTime', 'asc');
+                    $idSorted = 'length1';
                 } elseif ($sortBy === 'length2') {
                     $query->orderBy('longTime', 'desc');
+                    $idSorted = 'length2';
                 }
             }
 
             $movies = $query->get();
-
-            return view('movies.filter', ['movies' => $movies]);
+            return view('movies.filter', ['movies' => $movies,'categories' => $categories, 'idSelected' => $idSelected, 'idSorted' => $idSorted]);
         }
 
 }

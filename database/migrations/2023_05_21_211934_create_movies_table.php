@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('longTime');
             $table->float('rate');
             $table->string('img_path');
-            $table->integer('pricePerDay');
+            $table->double('pricePerDay');
             $table->string('available')->default('dostępny');
         });
 

@@ -1,0 +1,13 @@
+1;john.doe@gmail.com;wyświetlanie strony;Niedziałające sortowanie - funkcja sortowania filmów na stronie wypożyczeń nie działa poprawnie, a filmy są wyświetlane w losowej kolejności.
+2;david.brown@gmail.com;rejestracja;Błąd logowania - nie mogę zalogować się na swoje konto, mimo wprowadzenia poprawnych danych logowania.
+3;sarah.davis@gmail.com;płatność;Problemy z płatnościami - nie można dokonać płatności za wypożyczenie filmu, pojawia się błąd lub transakcja nie jest przetwarzana.
+4;jacek.wojciechowski@wp.pl;edycja danych; Błąd ze zmianą hasła - nie mogę zmienić hasła mimo, że podaję poprawne hasło poprzednie.
+5;agnieszka.wrobel@wp.pl;wyświetlanie strony;Nieprawidłowe wyświetlanie filmów - na stronie wypożyczalni filmy nie są wyświetlane poprawnie, nie widać ich okładek lub opisów.
+6;jakub.kaczmarek@wp.pl;wyświetlanie strony;Niepoprawne działanie wyszukiwarki - wyniki wyszukiwania filmów nie są dokładne lub nie odpowiadają wprowadzonym kryteriom.
+7;magdalena.pawlak@wp.pl;edycja danych;Błąd ze zmianą adresu - zmieniłem miejsce zamieszkania i chcę to zmienić na stronie lecz po zapisie danych ciągle wyświetla się stary adres.
+8;lukasz.kaminski@wp.pl;płatność; Mimo podawania poprawnej karty płatność nie przechodzi, środki na koncie mam.
+9;justyna.krajewska@wp.pl;wypożyczenia;Nie mogę anulowac nieopłaconego wypożyczenia.
+10;benjamin.martin@gmail.com;edycja danych;Nieprawidłowe wyświetlanie koszyka - po dodaniu filmów do koszyka, nie są one poprawnie wyświetlane lub liczba filmów w koszyku jest niewłaściwa.
+11;lukasz.kaminski@wp.pl;wypożyczenia;Błąd podczas dodawania filmu do koszyka - po kliknięciu przycisku "Dodaj do koszyka" film nie zostaje prawidłowo dodany lub pojawia się błąd.
+12;ava.white@gmail.com;wyświetlanie strony;Spowolniona lub niestabilna strona - strona wypożyczalni działa powoli lub niewłaściwie reaguje na interakcje użytkownika, co utrudnia korzystanie z serwisu.
+13;jane.smith@gmail.com;wypożyczenia;Błąd przeliczania opłat - system nieprawidłowo oblicza opłaty za wypożyczenie filmów, co skutkuje błędnymi kwotami do zapłaty.
