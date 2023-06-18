@@ -1,8 +1,8 @@
 <div id="formHide" style="display: block;" class="bg-dark rounded">
     <div class="text-white">
-        <a href="" class="btn btn-danger2 btn-block m-2" id="reportBtn" onclick="toggleSupportPanel(event)">Zgłoś problem</a>
+        <a href="" class="btn btn-danger2 btn-block" id="reportBtn" onclick="toggleSupportPanel(event)">Zgłoś problem</a>
     </div>
-    <li id="edit-panel" class="card list-group-item text-white edit-panel mx-auto  rounded border border-3 border-danger" style="display: none; width: 25rem">
+    <li id="edit-panel" class="card list-group-item text-white edit-panel mx-auto  rounded border border-3 border-danger" style="display: none;">
         <form id="supportForm" action="{{ route('addProblem') }}" method="POST">
             @csrf
             <div class="form-group m-2">
