@@ -149,7 +149,7 @@
                     </div>
                     <div class="form-group">
                         <label for="longTime">Czas trwania w minutach</label>
-                        <input type="number" class="form-control" id="longTime" name="longTime" min="0" value="{{ $movie->longTime }}">
+                        <input type="number" class="form-control" id="longTime" name="longTime" max="1000" min="0" value="{{ $movie->longTime }}">
                     </div>
                     <div class="form-group">
                         <label for="rate">Ocena</label>
@@ -157,7 +157,7 @@
                     </div>
                     <div class="form-group">
                         <label for="pricePerDay">Cena za dzień</label>
-                        <input type="number" step="any" class="form-control" id="pricePerDay" name="pricePerDay" min="0" value="{{ $movie->pricePerDay }}">
+                        <input type="number" step="any" class="form-control" id="pricePerDay" name="pricePerDay" max="1000" min="0" value="{{ $movie->pricePerDay }}">
                     </div>
                     <div class="form-group">
                         <label for="image">Zmień zdjęcie</label>

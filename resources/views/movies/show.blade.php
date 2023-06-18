@@ -73,7 +73,7 @@
 </div>
 <div class="card mb-3 bg-dark text-white m-5 w-75 m-auto">
     <div class="card-body">
-        <h4 class="card-title">Opinie osób której już obejżały</h4>
+        <h4 class="card-title">Opinie osób której już obejrzały</h4>
         <hr>
         @foreach ($movie->opinions as $opinion)
             <div class="card my-2">

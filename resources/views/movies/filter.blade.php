@@ -34,7 +34,7 @@
     </form>
     <div class="d-flex justify-content-center m-3">
         <form class="form-inline" role="search" action="{{ route('movies.search') }}" method="GET">
-            <div class="input-group">
+            <div class="input-group row">
                 <input class="form-control" type="search" name="search" placeholder="Wpisz tytuł, aby wyszukać..." required aria-label="Search" value="">
                 <div class="input-group-append">
                     <button class="btn custom-btn m-2" type="submit">Szukaj</button>
@@ -56,7 +56,7 @@
             </div>
             <ul class="list-group list-group-flush bg-secondary">
                 <li class="list-group-item bg-dark2 text-white">Reżyser: <b>{{ $movie->director }}</b></li>
-                <li class="list-group-item bg-dark3">Rok premiery: <b>{{ $movie->release }}</b></li>
+                <li class="list-group-item bg-dark3">Rok premiery: <b class="text-white">{{ $movie->release }}</b></li>
                 <li class="list-group-item bg-dark3">Ocena: <b class="text-white">{{ $movie->rate }}</b></li>
             </ul>
             <div class="card-body bg-dark mb-1">

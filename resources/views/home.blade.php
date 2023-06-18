@@ -55,7 +55,7 @@
                 </div>
                 <ul class="list-group list-group-flush bg-secondary">
                 <li class="list-group-item bg-dark2 text-white">Reżyser: <b>{{ $movie->director }}</b></li>
-                <li class="list-group-item bg-dark3">Rok premiery: <b>{{ $movie->release }}</b></li>
+                <li class="list-group-item bg-dark3">Rok premiery: <b class="text-white">{{ $movie->release }}</b></li>
                 <li class="list-group-item bg-dark3">Ocena: <b class="text-white">{{ $movie->rate }}</b></li>
                 </ul>
                 <div class="card-body bg-dark">
