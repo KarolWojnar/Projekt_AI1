@@ -50,7 +50,7 @@
         @endif
         @foreach($movies as $movie)
         <div class="card bg-dark2 text-white m-3" style="width: 18rem;">
-            <img src="{{ asset($movie->img_path) }}" class="card-img-top" alt="">
+            <img src="{{ route('movies.image', ['id' => $movie->id]) }}" class="card-img-top" alt="">
             <div class="card-body">
                 <h6 class="card-title text-danger2"><b>{{ $movie->title }}</b></h6>
             </div>

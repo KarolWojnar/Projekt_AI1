@@ -25,7 +25,7 @@
                 <div>
                     <a href="#" class="btn btn-secondary custom-btn" onclick="toggleEditPanel(event, {{ $user->id }})">Edytuj</a>
 
-                    <a href="{{ route('users.delete', ['id' => $user->id]) }}" class="btn btn-danger">Usuń</a>
+                    <a href="{{ route('users.delete', ['id' => $user->id]) }}" class="btn btn-danger @foreach ($loans as $loan) @if ($user->id == $loan->user_id) disabled @endif @endforeach" >Usuń</a>
                 </div>
             </li>
             <li id="edit-panel-{{ $user->id }}" class="list-group-item bg-dark text-white edit-panel" style="display: none;">

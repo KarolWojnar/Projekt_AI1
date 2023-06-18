@@ -4,7 +4,7 @@
 <div class="card mb-3 bg-dark text-white m-5">
     <div class="row g-0">
         <div class="col-md-3">
-            <img src="{{ asset($movie->img_path) }}" class="img-fluid h-40" alt="{{ $movie->title }}">
+            <img src="{{ route('movies.image', ['id' => $movie->id]) }}" class="img-fluid h-40" alt="{{ $movie->title }}">
         </div>
         <div class="col-md-8">
             <div class="card-body">
@@ -26,7 +26,7 @@
                                 <h3 class="text-danger">Masz {{ $user->late_fee }} zł kary. Zanim coś wypożyczysz, najpierw zapłać karę.</h3>
                                 <div class="row justify-content-center">
                                     <div class="col-md-8">
-                                        <form action="{{ route('processPayment_lateFee') }}" method="POST" id="processPayment_lateFee">
+                                        <form action="{{ route('processPaymentLateFee') }}" method="POST" id="processPayment_lateFee">
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="price" class="form-label">Opłata:</label>
@@ -71,7 +71,7 @@
         </div>
     </div>
 </div>
-<div class="card mb-3 bg-dark text-white m-5">
+<div class="card mb-3 bg-dark text-white m-5 w-75 m-auto">
     <div class="card-body">
         <h4 class="card-title">Opinie osób której już obejżały</h4>
         <hr>
@@ -82,7 +82,7 @@
                     <p class="card-text">{{ $opinion->content }}</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-black">{{ $opinion->updated_at }}</small>
+                    <small class="text-black">{{ $opinion->created_at }}</small>
                 </div>
             </div>
         @endforeach

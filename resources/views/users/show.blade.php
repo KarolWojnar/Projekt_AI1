@@ -3,8 +3,23 @@
 
 <div class="container mt-5">
     <div class="card">
-        <div class="card-header bg-dark text-white">
-            <h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
+        <div class="card-header row bg-dark text-white">
+            <div class="col-6">
+                <h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
+            </div>
+            <div class="col-6 text-right">
+                @if ($errors->any())
+                    <div class="alert alert-danger mt-3">
+                        @foreach ($errors->all() as $error)
+                            {{ $error }}
+                        @endforeach
+                    </div>
+                @elseif (session('success'))
+                    <div class="alert alert-success mt-3">
+                        {{ session('success') }}
+                    </div>
+                @endif
+            </div>
         </div>
         <div class="card-body bg-dark text-white">
             <div class="row">
@@ -16,7 +31,7 @@
                             <h3 class="text-danger">Masz {{ $user->late_fee }} zł długu</h3>
                             <div class="row justify-content-center">
                                 <div class="col-md-8">
-                                    <form action="{{route('processPayment_lateFee')}}" method="POST">
+                                    <form action="{{route('processPaymentLateFee')}}" method="POST">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="price" class="form-label">Opłata:</label>
@@ -39,49 +54,51 @@
                 </div>
                 <div class="col-md-6">
                     <div class="text-white">
-                        <h3>Aktualne wypożyczenia:</h3>
-                        <ul class="list-group">
-                            @foreach ($loans->sortByDesc('start_loan') as $loan)
-                            @if ($loan->user_id == $user->id && $loan->status != 'Zwrócone')
-                            <li class="list-group-item rounded m-2" style="opacity: 0.6">
-                                <strong>Data wypożyczenia:</strong> {{ $loan->start_loan }} <br>
-                                <strong class="text-danger">Ustalona data zwrotu:</strong> {{ $loan->end_loan }} <br>
-                                @if (strtotime(date('Y-m-d')) > strtotime($loan->end_loan))
-                                <h4 class="text-dark bg-danger">Spóźniasz się z oddaniem</h4><br>
-                                @endif
-                                <strong>Filmy w wypożyczeniu:</strong><br>
-                                @foreach ($loan->movies as $movie)
-                                "{{ $movie->title }}"<br>
-                                @endforeach
-                                <strong>Status:</strong> {{ $loan->status }}
-                                @if ($loan->status == 'Nieopłacone')
-                                <div class="row justify-content-center">
-                                    <div class="col-md-8">
-                                        <form action="{{ route('processPayment_late') }}" method="POST" class="w-100">
-                                            @csrf
-                                            <div class="mb-3">
-                                                <input type="text" class="form-control-static lead" onfocus="this.blur()" value="{{ $loan->price }}" name="totalPrice" style="display: none;border: none;"><p class="form-control-static lead"><strong>{{ $loan->price }} zł</strong></p>
-                                                <input type="text" class="form-control-static lead" onfocus="this.blur()" value="{{ $loan->id }}" name="loanId" style="display: none;border: none;">
-                                            </div>
-                                            <div id="card-element" class="form-control" data-stripe-key="{{ env('STRIPE_KEY') }}"></div>
-                                            <div id="card-errors" class="invalid-feedback"></div>
-                                            <div class="d-flex justify-content-between">
-                                                <button type="submit" class="btn custom-btn w-45 m-2"><strong>Zapłać</strong></button>
+                        @if (count($loans) > 0)
+                            <h3>Aktualne wypożyczenia:</h3>
+                            <ul class="list-group">
+                                @foreach ($loans->sortByDesc('start_loan') as $loan)
+                                @if ($loan->user_id == $user->id && $loan->status != 'Zwrócone')
+                                <li class="list-group-item rounded m-2" style="opacity: 0.6">
+                                    <strong>Data wypożyczenia:</strong> {{ $loan->start_loan }} <br>
+                                    <strong class="text-danger">Ustalona data zwrotu:</strong> {{ $loan->end_loan }} <br>
+                                    @if (strtotime(date('Y-m-d')) > strtotime($loan->end_loan))
+                                    <h4 class="text-dark bg-danger">Spóźniasz się z oddaniem</h4><br>
+                                    @endif
+                                    <strong>Filmy w wypożyczeniu:</strong><br>
+                                    @foreach ($loan->movies as $movie)
+                                    "{{ $movie->title }}"<br>
+                                    @endforeach
+                                    <strong>Status:</strong> {{ $loan->status }}
+                                    @if ($loan->status == 'Nieopłacone')
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-8">
+                                            <form action="{{ route('processPaymentLate') }}" method="POST" class="w-100">
+                                                @csrf
+                                                <div class="mb-3">
+                                                    <input type="text" class="form-control-static lead" onfocus="this.blur()" value="{{ $loan->price }}" name="totalPrice" style="display: none;border: none;"><p class="form-control-static lead"><strong>{{ $loan->price }} zł</strong></p>
+                                                    <input type="text" class="form-control-static lead" onfocus="this.blur()" value="{{ $loan->id }}" name="loanId" style="display: none;border: none;">
+                                                </div>
+                                                <div id="card-element" class="form-control" data-stripe-key="{{ env('STRIPE_KEY') }}"></div>
+                                                <div id="card-errors" class="invalid-feedback"></div>
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="submit" class="btn custom-btn w-45 m-2"><strong>Zapłać</strong></button>
+                                                </form>
+                                                <form action="{{ route('cancelLoan', ['id' => $loan->id]) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger w-45 m-2" onclick="return confirm('Czy na pewno chcesz anulować wypożyczenie?')">
+                                                    <strong>Anuluj wypożyczenie</strong>
+                                                </button>
                                             </form>
-                                            <form action="{{ route('cancelLoan', ['id' => $loan->id]) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger w-45 m-2" onclick="return confirm('Czy na pewno chcesz anulować wypożyczenie?')">
-                                                <strong>Anuluj wypożyczenie</strong>
-                                            </button>
-                                        </form>
+                                        </div>
+                                        <strong class="text-danger">Jeśli nie opłacisz zamówienia do daty startu wypożczenia filmy ponownie trafią do oferty sklepu</strong>
                                     </div>
-                                    <strong class="text-danger">Jeśli nie opłacisz zamówienia do daty startu wypożczenia filmy ponownie trafią do oferty sklepu</strong>
-                                </div>
+                                    @endif
+                                </li>
                                 @endif
-                            </li>
+                                @endforeach
+                            </ul>
                             @endif
-                            @endforeach
-                        </ul>
                     </div>
                 </div>
             </div>

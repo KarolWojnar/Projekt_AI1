@@ -45,12 +45,13 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/cart', [LoansController::class, 'cartShow'])->name('loans.show')->middleware('auth');
     Route::get('/cart/delete/{id}', [LoansController::class, 'deleteFromCart'])->name('deleteFromCart')->middleware('auth');
     Route::post('/process_payment', [PaymentController::class, 'processPayment'])->name('process_payment');
-    Route::post('/process_payment_lateFee', [PaymentController::class, 'processPayment_lateFee'])->name('processPayment_lateFee');
-    Route::post('/processPayment_late', [PaymentController::class, 'processPayment_late'])->name('processPayment_late');
+    Route::post('/process_payment_lateFee', [PaymentController::class, 'processPaymentLateFee'])->name('processPaymentLateFee');
+    Route::post('/processPayment_late', [PaymentController::class, 'processPaymentLate'])->name('processPaymentLate');
     Route::post('/payment', [PaymentController::class, 'show'])->name('toPayment');
     Route::get('/payment/succes', [PaymentController::class, 'paymentSuccess'])->name('payment_success');
     Route::get('/payment/error', [PaymentController::class, 'paymentError'])->name('payment_error');
     Route::put('/loans/{id}', [LoansController::class, 'update'])->name('loans.update')->middleware('\App\Http\Middleware\AdminMiddleware::class');
+    Route::get('/movies/image/{id}', [MoviesController::class, 'getMovieImage'])->name('movies.image');
 
     // ADMIN
     Route::get('/editUsersAdmin',  'App\Http\Controllers\AdminPanel\EditUsersController@index')->middleware('\App\Http\Middleware\AdminMiddleware::class')->name('editUsers');

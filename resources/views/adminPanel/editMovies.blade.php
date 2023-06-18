@@ -17,7 +17,7 @@
         <a href="#" class="btn btn-secondary custom-btn" onclick="toggleAddPanel(event, 'category')">Dodaj kategorię</a>
     </div>
     <li id="add-panel-movie" class="list-group-item bg-dark text-white edit-panel" style="display: none;">
-        <form action="{{ route('movies.store') }}" method="POST">
+        <form action="{{ route('movies.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="title">Tytuł</label>
@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label for="genre">Gatunek</label>
-                <select id="genre" name="genre" class="form-control" required>
+                <select id="category_id" name="category_id" class="form-control" required>
                     <option value="">Wybierz</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->genre }}</option>
@@ -57,8 +57,8 @@
                 <input type="number" class="form-control" step="any" id="pricePerDay" name="pricePerDay" required value="">
             </div>
             <div class="form-group">
-                <label for="img_path">Dodaj ścieżkę do zdjęcia</label>
-                <input type="text" class="form-control" id="img_path" name="img_path" required value="img/example.jpg">
+                <label for="image">Dodaj zdjęcie</label>
+                <input type="file" class="form-control" id="img_path" name="img_path">
             </div>
             <div class="form-group">
                 <label for="available">Dostępność</label>
@@ -97,7 +97,7 @@
             </li>
             <li id="edit-panel-{{ $movie->id }}" class="list-group-item bg-dark text-white edit-panel" style="display: none;">
 
-                <form action="{{ route('movies.update', ['id' => $movie->id]) }}" method="POST">
+                <form action="{{ route('movies.update', ['id' => $movie->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -107,7 +107,7 @@
                     </div>
                     <div class="form-group">
                         <label for="genre">Gatunek</label>
-                        <select id="genre" name="genre" class="form-control">
+                        <select id="category_id" name="category_id" class="form-control">
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}" @if ($category->id == $movie->category_id) selected @endif>{{ $category->genre }}</option>
                             @endforeach
@@ -138,8 +138,8 @@
                         <input type="number" step="any" class="form-control" id="pricePerDay" name="pricePerDay" min="0" value="{{ $movie->pricePerDay }}">
                     </div>
                     <div class="form-group">
-                        <label for="img_path">Zmień zdjęcie</label>
-                        <input type="text" class="form-control" id="img_path" name="img_path" value="{{ $movie->img_path }}">
+                        <label for="image">Zmień zdjęcie</label>
+                        <input type="file" class="form-control" id="img_path" name="img_path">
                     </div>
                     <div class="form-group">
                         <label for="available">Dostępność</label>
@@ -190,10 +190,9 @@
 
     function cancelAddPanel(event) {
         event.preventDefault();
-        var addPanel = document.getElementById('add-panel');
-        addPanel.style.display = 'none';
+        var addPanels = document.getElementsByClassName('edit-panel');
+        for (var i = 0; i < addPanels.length; i++) {
+            addPanels[i].style.display = 'none';
+        }
     }
-
 </script>
-</body>
-</html>

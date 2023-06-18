@@ -125,7 +125,7 @@ return [
     'prohibited_unless' => ':attribute jest zabroniony, chyba że :other znajduje się w :values.',
     'prohibits' => ':attribute zabrania obecności :other.',
     'regex' => 'Format :attribute jest nieprawidłowy.',
-    'required' => 'To pole jest wymagane.',
+    'required' => ':attribute pole jest wymagane.',
     'required_array_keys' => ':attribute musi zawierać wpisy dla: :values.',
     'required_if' => ':attribute jest wymagane, gdy :other ma wartość :value.',
     'required_if_accepted' => ':attribute jest wymagane, gdy :other jest zaakceptowane.',

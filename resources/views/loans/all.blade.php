@@ -11,7 +11,7 @@
             <tr>
                 <th>ID zamówienia</th>
                 <th>Data zamówienia</th>
-                <th>ID klienta</th>
+                <th>emial klienta</th>
                 <th>Filmy</th>
                 <th>Status</th>
                 <th>Akcje</th>
@@ -22,7 +22,7 @@
                 <tr>
                     <td>{{ $loan->id }}</td>
                     <td>{{ $loan->start_loan }}</td>
-                    <td>{{ $loan->user_id }}</td>
+                    <td>{{ $loan->user->email }}</td>
                     <td>
                         <ul>
                             @foreach ($loan->movies as $movie)

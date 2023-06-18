@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MoviesSeeder extends Seeder
 {
@@ -20,6 +21,8 @@ class MoviesSeeder extends Seeder
         foreach($rows as $row) {
             $values = str_getcsv($row, ';');
             if (isset($values[1])) {
+                $imagePath = public_path($values[8]);
+                $imageData = file_get_contents($imagePath);
                 DB::table('movies')->insert([
                     'id' => $values[0],
                     'title' => $values[1],
@@ -29,7 +32,7 @@ class MoviesSeeder extends Seeder
                     'release' => $values[5],
                     'longTime' => $values[6],
                     'rate' => $values[7],
-                    'img_path' => $values[8],
+                    'img_path' => $imageData,
                     'pricePerDay' => $values[9],
                     'available' => $values[10],
                 ]);

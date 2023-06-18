@@ -46,7 +46,7 @@
                                 @foreach ($cart as $movie)
                                 <div class="d-inline-block card bg-dark2 text-white m-2" style="width: 17rem">
                                     <h6>"{{ $movie->title }}"</h6>
-                                    <img src="{{ asset($movie->img_path) }}" class="img-fluid" alt="{{ $movie->title }}">
+                                    <img src="{{ route('movies.image', ['id' => $movie->id]) }}" class="img-fluid" alt="{{ $movie->title }}">
                                     <p class="text-small">Cena za dzień: {{ $movie->pricePerDay }} zł</p>
                                         <a href="{{ route('deleteFromCart', ['id' => $movie->id]) }}" class="btn custom-btn mb-100"><b>Usuń produkt</b></a>
                                 </div>

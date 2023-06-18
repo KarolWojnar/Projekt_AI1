@@ -50,47 +50,77 @@ class MoviesController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required',
+            'category_id' => 'required',
+            'description' => 'required',
+            'director' => 'required',
+            'release' => ['required', 'date_format:Y'],
+            'longTime' => ['required', 'numeric', 'between:1,1000'],
+            'img_path' => 'nullable|image|max:64',
+            'rate' => ['required', 'numeric', 'between:0,10'],
+            'pricePerDay' => ['required', 'numeric', 'between:0,100'],
+            'available' => 'required',
+        ]);
+
         $movie = Movie::find($id);
         $movie->title = $request->input('title');
-        $movie->category_id = $request->input('genre');
+        $movie->category_id = $request->input('category_id');
         $movie->director = $request->input('director');
         $movie->description = $request->input('description');
         $movie->release = $request->input('release');
         $movie->longTime = $request->input('longTime');
         $movie->rate = $request->input('rate');
-        $movie->img_path = $request->input('img_path');
         $movie->pricePerDay = $request->input('pricePerDay');
         $movie->available = $request->input('available');
+
+        if ($request->hasFile('img_path')) {
+            $file = $request->file('img_path');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('', $fileName);
+
+            $imagePath = public_path('images/'.$fileName);
+            $imageData = file_get_contents($imagePath);
+            $movie->img_path = $imageData;
+        }
+
         $movie->save();
 
         return redirect()->route('editMovies')->with('success', 'Film został zaktualizowany.');
     }
 
     public function store(Request $request)
-        {
+    {
+        $request->validate([
+            'title' => 'required',
+            'category_id' => 'required',
+            'description' => 'required',
+            'director' => 'required',
+            'release' => ['required', 'date_format:Y'],
+            'longTime' => ['required', 'numeric', 'between:1,1000'],
+            'img_path' => 'required|image|max:64',
+            'rate' => ['required', 'numeric', 'between:0,10'],
+            'pricePerDay' => ['required', 'numeric', 'between:0,100'],
+            'available' => 'required',
+        ]);
 
-            $request->validate([
-                'title' => 'required',
-                'category_id' => 'required',
-                'description' => 'required',
-                'director' => 'required',
-                'release' => ['required', 'date_format:Y'],
-                'longTime' => ['required', 'numeric', 'between:1,1000'],
-                'img_path' => 'required',
-                'rate' => ['required', 'numeric', 'between:0,10'],
-                'pricePerDay' => ['required', 'numeric', 'between:0,100'],
-                'available' => 'required',
-            ]);
+        if ($request->hasFile('img_path')) {
+            $file = $request->file('img_path');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('', $fileName);
+
+            $imagePath = public_path('images/'.$fileName);
+            $imageData = file_get_contents($imagePath);
 
             $movie = new Movie();
+            $movie->img_path = $imageData;
             $movie->title = $request->input('title');
-            $movie->category_id = $request->input('genre');
+            $movie->category_id = $request->input('category_id');
             $movie->description = $request->input('description');
             $movie->director = $request->input('director');
             $movie->release = $request->input('release');
             $movie->longTime = $request->input('longTime');
             $movie->rate = $request->input('rate');
-            $movie->img_path = $request->input('img_path');
             $movie->pricePerDay = $request->input('pricePerDay');
             $movie->available = $request->input('available');
 
@@ -98,6 +128,10 @@ class MoviesController extends Controller
 
             return redirect()->back()->with('success', 'Film został dodany pomyślnie.');
         }
+
+        return redirect()->back()->with('error', 'Wystąpił problem z przesłanym plikiem.');
+    }
+
         public function catStore(Request $request)
         {
 
@@ -196,6 +230,15 @@ class MoviesController extends Controller
 
             $movies = $query->get();
             return view('movies.filter', ['movies' => $movies,'categories' => $categories, 'idSelected' => $idSelected, 'idSorted' => $idSorted]);
+        }
+
+        public function getMovieImage($id)
+        {
+            $movie = Movie::findOrFail($id);
+
+            $image = $movie->img_path;
+
+            return response($image)->header('Content-Type', 'image/jpeg');
         }
 
 }
