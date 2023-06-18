@@ -1,5 +1,27 @@
 @include('layouts.header')
 @include('layouts.css')
+
+<style>
+    .list-group-item {
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 576px) {
+        .list-group-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .list-group-item .text-white {
+            margin-bottom: 1rem;
+        }
+
+        .list-group-item .wrap {
+            margin-top: 1rem;
+        }
+    }
+</style>
+
 <div class="container w-100">
     <ul class="list-group">
         @if ($errors->any())
