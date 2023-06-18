@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // Inne middleware
         'prevent-back' => \App\Http\Middleware\PreventBackMiddleware::class,
+        'blockPaymentSuccess' => \App\Http\Middleware\BlockPaymentSuccess::class,
     ];
 }

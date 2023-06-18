@@ -156,11 +156,14 @@ class MoviesController extends Controller
             // Sprawdź, czy użytkownik jest zalogowany
             if ($user) {
                 $loans = Loan::where('user_id', $user->id)
-                    ->where(function ($query) use ($currentDate) {
-                        $query->where('status', 'Nieopłacone')
-                            ->orWhere('end_loan', '<', $currentDate);
-                    })
-                    ->get();
+                ->where(function ($query) use ($currentDate) {
+                    $query->where('status', 'Nieopłacone')
+                        ->orWhere(function ($query) use ($currentDate) {
+                            $query->where('end_loan', '<', $currentDate)
+                                ->where('status', '!=', 'Zwrócone');
+                        });
+                })
+                ->get();
             }
             $idSelected = 0;
             $idSorted = '';
