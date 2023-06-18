@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use Illuminate\Support\Facades\DB;
 return new class extends Migration
 {
     /**
@@ -20,11 +20,12 @@ return new class extends Migration
             $table->string('director');
             $table->year('release');
             $table->integer('longTime');
-            $table->float('rate');
-            $table->binary('img_path');
-            $table->double('pricePerDay');
+            $table->decimal('rate');
+            $table->binary('img_path')->nullable();
+            $table->decimal('pricePerDay');
             $table->string('available')->default('dostępny');
         });
+        DB::statement('ALTER TABLE movies MODIFY img_path LONGBLOB');
 
     }
 

@@ -11,7 +11,7 @@
                 <h6>Czy Twoje dane adresowe są poprawnie podane na profilu?</h6>
                 <div class="text-white M-AUTO">
                     <button id="yes" class="btn custom-btn mt-3 col-lg-4" onclick="setEnableLoan(event, {{ $user->id }})">TAK</button>
-                    <a class="btn custom-btn mt-3 col-lg-4" onclick="toggleEditPanel(event, {{ $user->id }})">SPRAWADŹ</a>
+                    <a class="btn custom-btn mt-3 col-lg-4" onclick="toggleEditPanel(event, {{ $user->id }})">SPRAWDŹ</a>
                 </div>
                 <li id="edit-panel-{{ $user->id }}" class="list-group-item bg-dark text-white edit-panel w-50 mx-auto" style="display: none;">
 

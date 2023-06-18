@@ -42,19 +42,19 @@
             </div>
             <div class="form-group">
                 <label for="release">Rok premiery</label>
-                <input type="number" class="form-control" id="release" name="release" required value="">
+                <input type="number" class="form-control" id="release" min="1900" max="2100" name="release" required value="">
             </div>
             <div class="form-group">
                 <label for="longTime">Czas trwania w minutach</label>
-                <input type="number" class="form-control" id="longTime" name="longTime" required value="">
+                <input type="number" class="form-control" id="longTime" min="0" name="longTime" required value="">
             </div>
             <div class="form-group">
                 <label for="rate">Ocena</label>
-                <input type="number" step="any" class="form-control" id="rate" name="rate" required value="">
+                <input type="number" step="any" class="form-control" id="rate" min="0" max="10" name="rate" required value="">
             </div>
             <div class="form-group">
                 <label for="pricePerDay">Cena za dzień</label>
-                <input type="number" class="form-control" step="any" id="pricePerDay" name="pricePerDay" required value="">
+                <input type="number" class="form-control" step="any" id="pricePerDay" min="0" max="100" name="pricePerDay" required value="">
             </div>
             <div class="form-group">
                 <label for="image">Dodaj zdjęcie</label>
@@ -90,7 +90,7 @@
                     <span class="">Dostępność: {{ $movie->available }}</span>
                 </div>
                 <div>
-                    <a href="#" style="" class="btn btn-secondary custom-btn @if ($movie->available == 'niedostępny') disabled @endif" onclick="toggleEditPanel(event, {{ $movie->id }})">Edytuj</a>
+                    <a href="#" style="" class="btn btn-secondary custom-btn" onclick="toggleEditPanel(event, {{ $movie->id }})">Edytuj</a>
 
                     <a href="{{ route('movies.delete', ['id' => $movie->id]) }}" class="btn btn-danger @if ($movie->available == 'niedostępny') disabled @endif">Usuń</a>
                 </div>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="form-group">
                         <label for="release">Rok premiery</label>
-                        <input type="number" class="form-control" id="release" name="release" min="0" value="{{ $movie->release }}">
+                        <input type="number" class="form-control" id="release" name="release" min="1900" max="2100" value="{{ $movie->release }}">
                     </div>
                     <div class="form-group">
                         <label for="longTime">Czas trwania w minutach</label>
@@ -131,7 +131,7 @@
                     </div>
                     <div class="form-group">
                         <label for="rate">Ocena</label>
-                        <input type="number" step="any" class="form-control" id="rate" name="rate" min="0" value="{{ $movie->rate }}">
+                        <input type="number" step="any" class="form-control" id="rate" name="rate" min="0" max="10" value="{{ $movie->rate }}">
                     </div>
                     <div class="form-group">
                         <label for="pricePerDay">Cena za dzień</label>

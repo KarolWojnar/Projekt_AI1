@@ -9,6 +9,7 @@ use App\Models\Movie;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -70,10 +71,18 @@ class UsersController extends Controller
         $user->address = $request->input('address');
         $user->city = $request->input('city');
 
+        // Sprawdzenie, czy zalogowany użytkownik ma rolę administratora
+        if (Auth::user()->isAdmin == 1) {
+            // Aktualizacja roli administratora tylko przez administratora
+            $isAdmin = $request->input('admin');
+            $user->isAdmin = ($isAdmin) ? true : false;
+        }
+
         $user->save();
 
         return redirect()->back()->with('success', 'Dane użytkownika zostały zaktualizowane.');
     }
+
     public function update2(Request $request, $id)
     {
         $user = User::find($id);

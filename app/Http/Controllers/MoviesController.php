@@ -57,7 +57,7 @@ class MoviesController extends Controller
             'director' => 'required',
             'release' => ['required', 'date_format:Y'],
             'longTime' => ['required', 'numeric', 'between:1,1000'],
-            'img_path' => 'nullable|image|max:64',
+            'img_path' => 'nullable|image|max:400',
             'rate' => ['required', 'numeric', 'between:0,10'],
             'pricePerDay' => ['required', 'numeric', 'between:0,100'],
             'available' => 'required',
@@ -98,11 +98,22 @@ class MoviesController extends Controller
             'director' => 'required',
             'release' => ['required', 'date_format:Y'],
             'longTime' => ['required', 'numeric', 'between:1,1000'],
-            'img_path' => 'required|image|max:64',
+            'img_path' => 'nullable|image|max:400',
             'rate' => ['required', 'numeric', 'between:0,10'],
             'pricePerDay' => ['required', 'numeric', 'between:0,100'],
             'available' => 'required',
         ]);
+
+        $movie = new Movie();
+        $movie->title = $request->input('title');
+        $movie->category_id = $request->input('category_id');
+        $movie->description = $request->input('description');
+        $movie->director = $request->input('director');
+        $movie->release = $request->input('release');
+        $movie->longTime = $request->input('longTime');
+        $movie->rate = $request->input('rate');
+        $movie->pricePerDay = $request->input('pricePerDay');
+        $movie->available = $request->input('available');
 
         if ($request->hasFile('img_path')) {
             $file = $request->file('img_path');
@@ -111,25 +122,12 @@ class MoviesController extends Controller
 
             $imagePath = public_path('images/'.$fileName);
             $imageData = file_get_contents($imagePath);
-
-            $movie = new Movie();
             $movie->img_path = $imageData;
-            $movie->title = $request->input('title');
-            $movie->category_id = $request->input('category_id');
-            $movie->description = $request->input('description');
-            $movie->director = $request->input('director');
-            $movie->release = $request->input('release');
-            $movie->longTime = $request->input('longTime');
-            $movie->rate = $request->input('rate');
-            $movie->pricePerDay = $request->input('pricePerDay');
-            $movie->available = $request->input('available');
-
-            $movie->save();
-
-            return redirect()->back()->with('success', 'Film został dodany pomyślnie.');
         }
 
-        return redirect()->back()->with('error', 'Wystąpił problem z przesłanym plikiem.');
+        $movie->save();
+
+        return redirect()->back()->with('success', 'Film został dodany pomyślnie.');
     }
 
         public function catStore(Request $request)

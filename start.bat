@@ -6,8 +6,6 @@ call composer install
 
 call composer require stripe/stripe-php
 
-call code --install-extension m4ns0ur.base64
-
 call php artisan key:generate
 
 call php artisan storage:link

@@ -144,7 +144,7 @@ return [
     'starts_with' => ':attribute musi zaczynać się jednym z następujących: :values.',
     'string' => ':attribute musi być ciągiem znaków.',
     'timezone' => ':attribute musi być poprawną strefą czasową.',
-    'unique' => ':attribute już istnieje.',
+    'unique' => ' już istnieje.',
     'uploaded' => 'Nie udało się przesłać :attribute.',
     'url' => 'Format :attribute jest nieprawidłowy.',
     'uuid' => ':attribute musi być poprawnym identyfikatorem UUID.',
