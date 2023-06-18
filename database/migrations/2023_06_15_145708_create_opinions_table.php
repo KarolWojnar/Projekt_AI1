@@ -14,7 +14,6 @@ class CreateOpinionsTable extends Migration
             $table->unsignedBigInteger('movie_id');
             $table->text('content');
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
         });

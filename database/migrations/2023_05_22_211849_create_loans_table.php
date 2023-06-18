@@ -17,6 +17,8 @@ return new class extends Migration
             $table->date('end_loan');
             $table->decimal('price');
             $table->string('status');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

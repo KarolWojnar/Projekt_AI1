@@ -22,9 +22,6 @@ return new class extends Migration
             $table->decimal('late_fee')->default(0);
             $table->boolean('isAdmin')->default(false);
         });
-        Schema::table('loans', function (Blueprint $table) {
-            $table->foreignId('user_id')->nullable()->constrained();
-        });
     }
 
     /**

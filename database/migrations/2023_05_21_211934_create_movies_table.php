@@ -21,7 +21,7 @@ return new class extends Migration
             $table->year('release');
             $table->integer('longTime');
             $table->float('rate');
-            $table->string('img_path');
+            $table->binary('img_path');
             $table->double('pricePerDay');
             $table->string('available')->default('dostępny');
         });
