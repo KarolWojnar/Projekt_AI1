@@ -1,13 +1,40 @@
-1;Biograficzny
-2;Dramat
-3;Familijny
-4;Fantasy
-5;Gangsterski
-6;Kryminał
-7;Przygodowy
-8;Psychologiczny
-9;Surrealistyczny
-10;Thriller
-11;Western
-12;Wojenny
-13;Komedia
+1;2;2;Świetny film, warto obejrzeć!
+2;2;4;Niezłe widowisko, polecam.
+3;2;23;Trochę przeciętny, mogło być lepiej.
+4;3;3;Wspaniała historia, wzruszająca.
+5;3;13;Nie mogę się doczekać kontynuacji!
+6;4;19;Ciekawy film, polecam każdemu.
+7;4;4;Przyjemnie się oglądało, świetne aktorstwo.
+8;4;15;Niezwykle emocjonujący, trzyma w napięciu.
+9;4;5;Zaskakujący twist, nie spodziewałem się.
+10;4;24;Doskonała komedia, śmiałem się do łez.
+11;6;6;Niezapomniane wrażenia, film godny polecenia.
+12;6;2;Romantyczny film dla zakochanych.
+13;6;19;Wielowątkowa fabuła, pełna napięcia.
+14;7;11;Intrygujący thriller, polecam fanom gatunku.
+15;7;20;Wzruszająca opowieść o przyjaźni.
+16;8;8;Film akcji z niezwykłymi efektami specjalnymi.
+17;8;14;Przyjemny film familijny, idealny dla dzieci.
+18;8;29;Zaskakująco dobry, nieoczekiwane zwroty akcji.
+19;8;6;Nostalgiczna podróż do przeszłości.
+20;8;17;Intrygujący kryminał, trzyma w napięciu.
+21;10;10;Film science-fiction z ciekawym scenariuszem.
+22;10;2;Klasyczna historia miłosna, wzruszająca.
+23;10;29;Ekscytujący film przygodowy, niezwykłe lokacje.
+24;10;11;Film dokumentalny o ważnym społecznym problemie.
+25;10;22;Dobrze zrealizowany dramat, warto obejrzeć.
+26;11;11;Wesoła komedia romantyczna, świetnie się bawiłem.
+27;11;10;Przygnębiający dramat, poruszająca historia.
+28;11;25;Fascynujący film historyczny, oddaje atmosferę epoki.
+29;12;12;Film muzyczny z wspaniałymi piosenkami.
+30;12;3;Oryginalny thriller psychologiczny, trzyma w napięciu.
+31;12;17;Przyjemna lektura, idealna na wieczór.
+32;12;22;Zabawny i inteligentny, polecam z uśmiechem.
+33;12;29;Film sensacyjny z widowiskowymi scenami akcji.
+34;13;13;Intrygujący film z zagadką do rozwiązania.
+35;13;4;Wciągający thriller z nieprzewidywalnym zakończeniem.
+36;14;14;Film przygodowy z niesamowitą oprawą wizualną.
+37;14;6;Poruszający dramat z głębokim przesłaniem.
+38;14;17;Świetnie zrealizowany film sci-fi, wart uwagi.
+39;15;15;Niezapomniana historia miłosna, wzruszająca.
+40;15;10;Intrygujący film z zagadkową fabułą.
