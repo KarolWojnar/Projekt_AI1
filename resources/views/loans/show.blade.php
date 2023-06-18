@@ -61,7 +61,7 @@
                         <div style="display: none;" id="showMe" class="col-lg-6">
                             <div class="form-group w-50 mx-auto mt-3">
                                 <label for="startDate">Data początku wypożyczenia:</label>
-                                <input type="date" id="startDate" name="startDate" value="" class="form-control" min="{{ $minDate }}" max="{{ date('Y-m-d', strtotime('+7 days')) }}" required>
+                                <input type="date" id="startDate" name="startDate" value="" class="form-control" onkeydown="return false;" onpaste="return false;" min="{{ $minDate }}" max="{{ date('Y-m-d', strtotime('+7 days')) }}" required>
                             </div>
                             <div id="endDateWrapper" class="form-group w-50 mx-auto" style="display: none;">
                                 <label for="endDate">Data końca wypożyczenia:</label>
@@ -85,6 +85,7 @@
     <div id="totalPrice" data-total-price="{{ $totalPrice }}"></div>
 </div>
 <script>
+
 function setEnableLoan(event, userId) {
     event.preventDefault();
     document.getElementById('rentMovieBtn').removeAttribute('disabled');
@@ -114,6 +115,7 @@ function setEnableLoan(event, userId) {
             }
         });
     });
+
 
     function toggleEditPanel(event, movieId) {
         event.preventDefault();

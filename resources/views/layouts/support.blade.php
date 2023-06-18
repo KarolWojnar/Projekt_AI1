@@ -7,13 +7,13 @@
             @csrf
             <div class="form-group m-2">
                 <label for="email">Podaj swój email:</label>
-                <input type="text" class="form-control bg-dark2 text-white" id="email" name="email" value="{{ old('email') }}">
+                <input type="email" required class="form-control bg-dark2 text-white" id="email" name="email" value="{{ old('email') }}">
                 <span class="text-danger" id="emailError"></span>
             </div>
 
             <div class="form-group m-2">
                 <label for="typeOf">Wybierz rodzaj problemu:</label>
-                <select class="form-control bg-dark2 text-white" id="typeOf" name="typeOf">
+                <select required class="form-control bg-dark2 text-white" id="typeOf" name="typeOf">
                     <option value="">Wybierz</option>
                     <option value="wypożyczenia">Wypożyczenia</option>
                     <option value="rejestracja">Rejestracja</option>
@@ -26,7 +26,7 @@
 
             <div class="form-group m-2">
                 <label for="problem">Zgłoś problem:</label>
-                <textarea class="form-control bg-dark2 text-white" id="problem" name="problem" rows="5">{{ old('problem') }}</textarea>
+                <textarea required class="form-control bg-dark2 text-white" id="problem" name="problem" rows="5">{{ old('problem') }}</textarea>
                 <span class="text-danger" id="problemError"></span>
             </div>
 
@@ -39,33 +39,6 @@
 </div>
 
 <script>
-     function submitForm(event) {
-        event.preventDefault();
-
-        // Pobranie wartości pól formularza
-        var email = document.getElementById('email').value;
-        var typeOf = document.getElementById('typeOf').value;
-        var problem = document.getElementById('problem').value;
-
-        // Sprawdzenie warunków walidacji
-        if (email !== '' && typeOf !== '' && problem !== '') {
-            // Przeładowanie strony tylko wtedy, gdy warunki są spełnione
-            document.getElementById('supportForm').submit();
-        } else {
-            // Wyświetlenie komunikatów błędów
-            if (email === '') {
-                document.getElementById('emailError').innerText = 'To pole jest wymagane.';
-            }
-            if (typeOf === '') {
-                document.getElementById('typeOfError').innerText = 'To pole jest wymagane.';
-            }
-            if (problem === '') {
-                document.getElementById('problemError').innerText = 'To pole jest wymagane.';
-            }
-        }
-    }
-
-
     function toggleSupportPanel(event) {
         event.preventDefault();
         var editPanel = document.getElementById('edit-panel');

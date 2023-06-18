@@ -91,7 +91,7 @@
                                                 </button>
                                             </form>
                                         </div>
-                                        <strong class="text-danger">Jeśli nie opłacisz zamówienia do daty startu wypożczenia filmy ponownie trafią do oferty sklepu</strong>
+                                        <strong class="text-danger">Jeśli nie opłacisz zamówienia do daty startu wypożyczenia filmy ponownie trafią do oferty sklepu</strong>
                                     </div>
                                     @endif
                                 </li>
